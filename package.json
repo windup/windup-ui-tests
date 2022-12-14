@@ -1,0 +1,23 @@
+{
+  "name": "windup-ui-tests",
+  "version": "1.0.0",
+  "description": "UI tests for windup",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/windup/windup-ui-tests.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/windup/windup-ui-tests/issues"
+  },
+  "homepage": "https://github.com/windup/windup-ui-tests#readme",
+  "devDependencies": {},
+  "dependencies": {
+    "cypress": "^12.1.0"
+  }
+}
