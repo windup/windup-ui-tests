@@ -1,3 +1,50 @@
-export enum Constants {
-    next = 'Next' 
-}
+export const SEC = 1000;
+
+//Home pages
+export const applications = "Applications";
+export const analysisResults = "Analysis results";
+export const projects = "Projects";
+export const analysisConfiguration = "Analysis configuration";
+export const rulesConfiguration = "Rules configuration";
+export const labelsConfiguration = "Labels configuration";
+
+//Advanced Options
+export const exportCsv = "Export CSV";
+export const disableTattletale = "Disable Tattletale";
+export const classNotFoundAnalysis = "Class Not Found analysis";
+export const compatibleFilesReport = "Compatible Files report";
+export const explodedApp = "Exploded app";
+export const keepWorkDirs = "Keep work dirs";
+export const skipReports = "Skip reports";
+export const allowNetworkAccess = "Allow network access";
+export const mavenize = "Mavenize";
+export const sourceMode = "Source mode";
+export const analyzeKnownLibraries = "Analyze known libraries";
+export const transactionAnalysis = "Transaction analysis";
+export const applicationName = "Application name";
+
+//Project Page Constants
+export const createProject = "Create project";
+export const browse = "Browse";
+export const containerization = "Containerization";
+export const quarkus = "Quarkus";
+export const oracle2openjdk = "OracleJDK to OpenJDK";
+export const openjdk11 = "openjdk11";
+export const openjdk17 = "openjdk17";
+export const eap7 = "eap7";
+export const eap8 = "eap8";
+export const linux = "Linux";
+export const jakarta = "Jakarta EE 9";
+export const springBoot = "Spring Boot on Red Hat Runtimes";
+export const openLiberty = "Open Liberty";
+export const azureAppservice = "azure-appservice";
+export const azureAks = "azure-aks";
+export const azureContainerApps = "azure-container-apps";
+export const eapCard = "Application server migration to EAP";
+
+//Navigation Buttons
+export const next = "Next";
+export const back = "Back";
+export const cancel = "Cancel";
+export const save = "Save";
+export const saveAndRun = "Save and run";
