@@ -42,9 +42,21 @@ export const azureAks = "azure-aks";
 export const azureContainerApps = "azure-container-apps";
 export const eapCard = "Application server migration to EAP";
 
+//Applications Page Constants
+export const addApplication = "Add application";
+
 //Navigation Buttons
+export const close = "Close";
 export const next = "Next";
 export const back = "Back";
 export const cancel = "Cancel";
 export const save = "Save";
 export const saveAndRun = "Save and run";
+export const deleteButton = "Delete";
+
+//Analysis Page constants
+export const MINUTE = 60000;
+export const runAnalysisButton = "Run analysis";
+export const completed = "Completed";
+export const running = "Running";
+export const pending = "Pending";

@@ -9,4 +9,7 @@ export const removeButton = "button[aria-label='Remove']";
 export const searchButton = "button[aria-label='search button for search input']";
 export const primaryButton = "button.pf-c-button.pf-m-primary";
 export const secondaryButton = "button.pf-c-button.pf-m-secondary";
+export const dangerButton = "button.pf-c-button.pf-m-danger";
 export const linkButton = "button.pf-c-button.pf-m-link";
+export const kebabMenu = "div > button[aria-label='Actions']";
+export const chooseProject = "button#pf-context-selector-toggle-id-0";

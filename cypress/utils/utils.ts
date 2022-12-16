@@ -1,4 +1,6 @@
 import { SEC } from "../e2e/types/constants";
+import { projectData } from "../e2e/types/types";
+import { chooseProject } from "../e2e/views/common.view";
 import { primaryButton } from "../e2e/views/common.view";
 import { navMenu } from "../e2e/views/menu.view";
 
@@ -72,4 +74,34 @@ export function importApp(app: string): void {
     });
 
     cy.wait(2000);
+}
+
+// Perform edit/delete action on the specified row selector by clicking a text button
+export function performRowAction(itemName: string, action: string): void {
+    // itemName is text to be searched on the screen (like credentials name, stakeholder name, etc)
+    // Action is the name of the action to be applied (usually edit or delete)
+
+    cy.get("td", { timeout: 120 * SEC })
+        .contains(itemName, { timeout: 120 * SEC })
+        .closest("tr")
+        .within(() => {
+            clickByText("button", action);
+            cy.wait(500);
+            clickByText("button", action);
+        });
+}
+
+export function performRowActionByIcon(itemName: string, action: string): void {
+    // itemName is the text to be searched on the screen (For eg: application name, etc)
+    // Action is the name of the action to be applied (For eg: edit or click kebab menu)
+    cy.contains(itemName, { timeout: 120 * SEC })
+        .closest("tr")
+        .within(() => {
+            click(action);
+        });
+}
+
+export function selectProject(projectName: string): void {
+    click(chooseProject);
+    clickByText("button", projectName);
 }
