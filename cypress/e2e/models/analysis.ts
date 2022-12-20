@@ -29,7 +29,7 @@ export class Analysis {
                     $span.text().toString().includes(running) ||
                     $span.text().toString().includes(pending)
                 ) {
-                    cy.wait(MINUTE);
+                    cy.wait(MINUTE / 2);
                     this.verifyLatestAnalysisStatus(status);
                 } else {
                     expect($span.text().toString().includes(status)).to.eq(true);
@@ -39,9 +39,7 @@ export class Analysis {
 
     //TODO: Function to validate app count of an analysis
 
-
     //TODO: Function to delete an analysis
 
     //TODO: Function to open reports for an analysis
-    
 }

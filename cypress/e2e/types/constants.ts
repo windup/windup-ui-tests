@@ -1,4 +1,6 @@
 export const SEC = 1000;
+export const appsPath = "cypress/fixtures/applications/";
+export const rulesAndLabelPath = "cypress/fixtures/xml/";
 
 //Home pages
 export const applications = "Applications";
@@ -41,6 +43,8 @@ export const azureAppservice = "azure-appservice";
 export const azureAks = "azure-aks";
 export const azureContainerApps = "azure-container-apps";
 export const eapCard = "Application server migration to EAP";
+export const addRule = "Add rule";
+export const addLabel = "Add label";
 
 //Applications Page Constants
 export const addApplication = "Add application";

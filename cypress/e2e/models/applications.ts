@@ -1,12 +1,13 @@
 import {
     clickByText,
-    importApp,
+    importFile,
     navigateTo,
     performRowActionByIcon,
     selectProject,
 } from "../../utils/utils";
 import { addApplication, applications, close, deleteButton, SEC } from "../types/constants";
-import { dangerButton, kebabMenu, primaryButton } from "../views/common.view";
+import { tableBody } from "../views/applications.view";
+import { dangerButton, kebabMenu, primaryButton, trTag } from "../views/common.view";
 
 export class Applications {
     projectName: string;
@@ -22,7 +23,7 @@ export class Applications {
     //Function to import applications to existing projects
     addApplication(apps: string[]) {
         this.openAddApplication();
-        apps.forEach((app) => importApp(app));
+        apps.forEach((app) => importFile(app));
         clickByText(primaryButton, close);
     }
 
@@ -37,5 +38,13 @@ export class Applications {
         performRowActionByIcon(app, kebabMenu);
         clickByText("button", deleteButton);
         clickByText(dangerButton, deleteButton);
+    }
+
+    validateAppCount(count: number): void {
+        cy.get(tableBody)
+            .find(trTag)
+            .then((row) => {
+                expect(row.length).to.equal(count);
+            });
     }
 }

@@ -1,6 +1,19 @@
-import { click, clickByText, importApp, inputText, navigateTo } from "../../utils/utils";
 import {
+    click,
+    clickByText,
+    importFile,
+    inputText,
+    navigateTo,
+    performRowAction,
+    performRowActionByIcon,
+    shouldBeEnabled,
+} from "../../utils/utils";
+import {
+    addLabel,
+    addRule,
+    close,
     createProject,
+    deleteButton,
     disableTattletale,
     eapCard,
     next,
@@ -10,9 +23,11 @@ import {
     SEC,
 } from "../types/constants";
 import { advancedOptionsData, projectData } from "../types/types";
-import { primaryButton } from "../views/common.view";
+import { dangerButton, kebabMenu, primaryButton } from "../views/common.view";
 import {
     advancedOptionSwitch,
+    deleteProjectInput,
+    enableRuleSwitch,
     packageSwitch,
     projectDescriptionInput,
     projectNameInput,
@@ -84,9 +99,9 @@ export class Projects {
         //TODO: Add validation that "Project Details" page is reached
 
         inputText(projectNameInput, this.name);
-
         if (desc) inputText(projectDescriptionInput, this.desc);
 
+        shouldBeEnabled(primaryButton, next);
         clickByText(primaryButton, next);
     }
 
@@ -95,7 +110,8 @@ export class Projects {
         //TODO: Add validation that "Add Applications" page is reached
         //TODO: Add "Server path" support to this function.
 
-        apps.forEach((app) => importApp(app));
+        apps.forEach((app) => importFile(app));
+        shouldBeEnabled(primaryButton, next);
         clickByText(primaryButton, next);
     }
 
@@ -106,6 +122,7 @@ export class Projects {
         clickByText("h4", eapCard);
         targets.forEach((target) => this.selectCard(target));
 
+        shouldBeEnabled(primaryButton, next);
         clickByText(primaryButton, next);
     }
 
@@ -133,18 +150,25 @@ export class Projects {
             click(packageSwitch);
             //TODO: Add functionality to exclude or include the provided packages
         }
-
+        shouldBeEnabled(primaryButton, next);
         clickByText(primaryButton, next);
     }
 
     //Function to provide some custom rules to be used in the analysis (Optional)
     addCustomRules(rules?: string[]): void {
         //TODO: Add validation that "Custom rules" page is reached
+        //TODO: Add "Server path" support to this function.
 
         if (rules) {
-            //TODO: Add Rule Functionality
+            clickByText(primaryButton, addRule);
+            rules.forEach((rule) => importFile(rule));
+            clickByText(primaryButton, close);
+            cy.get(enableRuleSwitch).each(($switch) => {
+                cy.wrap($switch).click({ force: true });
+                cy.wait(SEC);
+            });
         }
-
+        shouldBeEnabled(primaryButton, next);
         clickByText(primaryButton, next);
     }
 
@@ -152,9 +176,15 @@ export class Projects {
     addCustomLabels(labels?: string[]): void {
         //TODO: Add validation that "Custom Labels" page is reached
         if (labels) {
-            //TODO: Add Label Functionality
+            clickByText(primaryButton, addLabel);
+            labels.forEach((label) => importFile(label));
+            clickByText(primaryButton, close);
+            cy.get(enableRuleSwitch).each(($switch) => {
+                cy.wrap($switch).click({ force: true });
+                cy.wait(SEC);
+            });
         }
-
+        shouldBeEnabled(primaryButton, next);
         clickByText(primaryButton, next);
     }
 
@@ -166,7 +196,7 @@ export class Projects {
                 advancedOptions.options.forEach((option) => this.enableOption(option));
 
         //TODO: Add support for other options
-
+        shouldBeEnabled(primaryButton, next);
         clickByText(primaryButton, next);
     }
 
@@ -180,16 +210,29 @@ export class Projects {
     //Function to only save the project using Save button.
     saveProject(): void {
         //TODO: Add validation that "Review" page is reached
+        shouldBeEnabled(primaryButton, save);
         clickByText(primaryButton, save);
     }
 
     //Function to save the project and also run the analysis using SaveAndRun button.
     saveProjectAndRunAnalysis(): void {
         //TODO: Add validation that "Review" page is reached
+        shouldBeEnabled(primaryButton, saveAndRun);
         clickByText(primaryButton, saveAndRun);
     }
 
     //TODO: Function to edit a project
 
     //TODO: Function to delete a project
+    deleteProject(project: string): void {
+        cy.wait(SEC);
+        performRowActionByIcon(project, kebabMenu);
+        clickByText("button", deleteButton);
+
+        inputText(deleteProjectInput, project);
+        shouldBeEnabled(dangerButton, deleteButton);
+        clickByText(dangerButton, deleteButton);
+    }
+    //TODO: Function to Validate Project is created
+    validateProjectCreation(): void {}
 }

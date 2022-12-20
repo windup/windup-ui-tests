@@ -1,0 +1,27 @@
+{
+    "BasicApp_eap7": {
+        "name": "BasicApp_eap7",
+        "apps": ["acmeair-webapp-1.0-SNAPSHOT.war"],
+        "targets": ["eap7"],
+        "customRules": ["custom.Test1rules.rhamt.xml"],
+        "customLabels": ["customWebLogic.windup.label.xml"]
+    },
+
+    "Containerization": {
+        "name": "Containerization",
+        "apps": ["customers-tomcat-0.0.1-SNAPSHOT.war"],
+        "targets": ["Containerization"],
+        "storyPoints": [2]
+    },
+
+    "JakartaEE9": {
+        "name": "Jakarta",
+        "apps": [
+            "acmeair-webapp-1.0-SNAPSHOT.war",
+            "customers-tomcat-0.0.1-SNAPSHOT.war",
+            "spring-petclinic-2.4.0.BUILD-SNAPSHOT.jar"
+        ],
+        "targets": ["Jakarta EE 9"],
+        "storyPoints": [78, 10, 44]
+    }
+}
