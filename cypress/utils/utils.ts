@@ -1,7 +1,7 @@
-import { SEC } from "../e2e/types/constants";
+import { appsPath, rulesAndLabelPath, SEC } from "../e2e/types/constants";
 import { projectData } from "../e2e/types/types";
 import { chooseProject } from "../e2e/views/common.view";
-import { primaryButton } from "../e2e/views/common.view";
+import * as data from "../utils/data_utils";
 import { navMenu } from "../e2e/views/menu.view";
 
 let userName = Cypress.env("user");
@@ -25,6 +25,12 @@ export function clickByText(fieldId: string, buttonText: string, isForced = true
     cy.contains(fieldId, buttonText, { timeout: 120 * SEC }).click({
         force: isForced,
     });
+    cy.wait(SEC);
+}
+
+export function shouldBeEnabled(fieldId: string, buttonText: string): void {
+    cy.wait(SEC);
+    cy.contains(fieldId, buttonText, { timeout: 120 * SEC }).should("be.enabled");
     cy.wait(SEC);
 }
 
@@ -67,7 +73,7 @@ export function navigateTo(page: string): void {
     cy.wait(10000);
 }
 
-export function importApp(app: string): void {
+export function importFile(app: string): void {
     cy.get('input[type="file"]', { timeout: 5 * SEC }).invoke("show");
     cy.get('input[type="file"]', { timeout: 5 * SEC }).selectFile(app, {
         action: "drag-drop",
@@ -104,4 +110,27 @@ export function performRowActionByIcon(itemName: string, action: string): void {
 export function selectProject(projectName: string): void {
     click(chooseProject);
     clickByText("button", projectName);
+}
+
+export function getRandomApplicationData(applicationData): projectData {
+    applicationData["name"] = applicationData["name"] + data.getProjectName();
+    applicationData["desc"] = data.getDescription();
+
+    for (let index = 0; index < applicationData["apps"].length; index++) {
+        applicationData["apps"][index] = appsPath + applicationData["apps"][index];
+    }
+
+    if (applicationData["customRules"]) {
+        for (let index = 0; index < applicationData["customRules"].length; index++) {
+            applicationData["customRules"][index] = rulesAndLabelPath + applicationData["customRules"][index];
+        }
+    }
+
+    if (applicationData["customLabels"]) {
+        for (let index = 0; index < applicationData["customLabels"].length; index++) {
+            applicationData["customLabels"][index] = rulesAndLabelPath + applicationData["customLabels"][index];
+        }
+    }
+
+    return applicationData;
 }

@@ -13,3 +13,4 @@ export const dangerButton = "button.pf-c-button.pf-m-danger";
 export const linkButton = "button.pf-c-button.pf-m-link";
 export const kebabMenu = "div > button[aria-label='Actions']";
 export const chooseProject = "button#pf-context-selector-toggle-id-0";
+export const trTag = "tr";

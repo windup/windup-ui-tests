@@ -1,1 +1,1 @@
-export const statusColumn = "td[data-label='Status']"
+export const statusColumn = "td[data-label='Status']";
