@@ -1,0 +1,100 @@
+name: Pull request test
+on: [pull_request]
+
+jobs:
+  k8s-tests:
+    name: Collect test cases
+    runs-on: ubuntu-latest
+    outputs:
+      tests: ${{ steps.event.outputs.tests }}
+    steps:
+      - name: Checkout to pull request branch
+        uses: actions/checkout@v2
+      - id: file_changes
+        uses: jitterbit/get-changed-files@v1
+        continue-on-error: true
+        with:
+          format: 'json'
+        # Create event to generate ouput of comma separated test files only
+      - id: event
+        run: |
+          test_files=`python3 -c 'print(",".join([file for file in ${{ steps.file_changes.outputs.all }} if ".test.ts" in file]))'`
+          echo "::set-output name=tests::$test_files"
+  k8s:
+    name: Run collected tests
+    needs: k8s-tests
+    if: ${{ needs.k8s-tests.outputs.tests }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout tackle
+        uses: actions/checkout@v2
+        with:
+          repository: konveyor/tackle
+          path: tackle
+      - name: start minikube
+        id: minikube
+        with:
+          minikube-version: 1.24.0
+          driver: docker
+          kubernetes-version: v1.23.3
+        uses: medyagh/setup-minikube@master
+    
+      - name: Kubectl enable addons ingress
+        run: minikube addons enable ingress
+      - name: Kubectl enable addons registry
+        run: minikube addons enable registry
+      - name: Validate Minikube
+        run: minikube status | grep Running
+      - name: Validate enabled addon in arg
+        run: minikube addons list -o json | jq '.registry.Status' | grep enabled
+      - name: Validate Cluster
+        run: kubectl get nodes
+      - name: Kubectl enable addons
+        run: minikube addons enable dashboard
+      - name: Kubectl enable olm
+        run: minikube addons enable olm
+
+      - name: Download Windup
+        run: curl https://download.eng.bos.redhat.com/rcm-guest/staging/jboss-migrationtoolkit/migration-toolkit-for-runtimes-1.0.1.CR1/mtr-1.0.1.CR1-with-authentication.zip -o windup.zip
+
+      - name: Create folder
+        run: mkdir windup-snapshot
+
+      - name: unzip 
+        run: unzip windup.zip -d windup-snapshot 
+      - name: Create new project
+        run: kubectl new-project windup
+      - name: Run json file
+        run: oc process -f windup-snapshot/openshift/templates/web-template-empty-dir-executor.json | oc create -f - 
+
+      - name: Wait for Ingress
+        shell: bash
+        run: |
+          bash -c 'external_ip="";
+          echo $external_ip;
+          while [[ -z $external_ip ]] 
+            do 
+              echo "Waiting for end point..."
+                external_ip=$(kubectl get ingress windup --template="{{range.status.loadBalancer.ingress}}{{.ip}}{{end}}" -n windup);[[ -z $external_ip ]] &&
+                echo $external_ip;
+                sleep 10;
+            done
+          echo "End point ready:" &&
+          echo $external_ip;
+          export endpoint=$(minikube ip);
+          echo "windupUrl=https://$endpoint" >>$GITHUB_ENV
+        
+
+      - name: Checkout to pull request branch
+        uses: actions/checkout@v2
+       # Install NPM dependencies
+      - name: Install NPM
+        run: npm install .
+      - name: Run cypress test cases
+        run: npx cypress run --spec ${{ needs.k8s-tests.outputs.tests }} --env user="admin",pass="password",tackleUrl=${{ env.windupUrl }}
+
+      - uses: actions/upload-artifact@v1
+        if: failure()
+        with:
+          name: minikube-tests-screenshots
+          path: cypress/screenshots
