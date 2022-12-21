@@ -5,6 +5,7 @@ import { appsPath } from "../types/constants";
 
 describe("Applications page", () => {
     beforeEach("Login", function () {
+        //Move to Before after adding support for SecureURL.
         login();
 
         cy.fixture("json/data").then(function (projectData) {

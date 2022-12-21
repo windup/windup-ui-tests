@@ -1,6 +1,20 @@
+import cypress from "cypress";
 import { clickByText, navigateTo, performRowActionByIcon, selectProject } from "../../utils/utils";
-import { analysisResults, MINUTE, pending, runAnalysisButton, running } from "../types/constants";
-import { statusColumn } from "../views/analysis.view";
+import {
+    analysisResults,
+    MINUTE,
+    pending,
+    runAnalysisButton,
+    running,
+    SEC,
+} from "../types/constants";
+import {
+    actionsColumn,
+    fileName,
+    reportLink,
+    reportStoryPoints,
+    statusColumn,
+} from "../views/analysis.view";
 import { primaryButton } from "../views/common.view";
 
 export class Analysis {
@@ -24,6 +38,7 @@ export class Analysis {
         cy.get("@firstRow")
             .find(statusColumn)
             .find("span")
+            .first()
             .then(($span) => {
                 if (
                     $span.text().toString().includes(running) ||
@@ -41,5 +56,26 @@ export class Analysis {
 
     //TODO: Function to delete an analysis
 
-    //TODO: Function to open reports for an analysis
+    //Function to open reports for an analysis
+    openReport(): void {
+        cy.wait(SEC);
+        cy.get("table > tbody > tr").eq(0).as("firstRow");
+        cy.get("@firstRow")
+            .find(actionsColumn)
+            .get(reportLink)
+            .then(($report) => {
+                $report.attr("target", "_self");
+            })
+            .click();
+
+        cy.wait(SEC);
+        //TODO: Add validation that report has opened
+    }
+
+    validateStoryPoints(appNames: string[], points: number[]): void {
+        for (var index = 0; index < appNames.length; index++) {
+            cy.get(fileName).should("contain", appNames[index]);
+            cy.get(reportStoryPoints).should("contain", points[index]);
+        }
+    }
 }
