@@ -113,7 +113,7 @@ export function selectProject(projectName: string): void {
 }
 
 export function getRandomApplicationData(applicationData): projectData {
-    applicationData["name"] = applicationData["name"] + data.getProjectName();
+    applicationData["name"] = applicationData["name"] + "_" + data.getProjectName();
     applicationData["desc"] = data.getDescription();
 
     for (let index = 0; index < applicationData["apps"].length; index++) {
@@ -122,15 +122,27 @@ export function getRandomApplicationData(applicationData): projectData {
 
     if (applicationData["customRules"]) {
         for (let index = 0; index < applicationData["customRules"].length; index++) {
-            applicationData["customRules"][index] = rulesAndLabelPath + applicationData["customRules"][index];
+            applicationData["customRules"][index] =
+                rulesAndLabelPath + applicationData["customRules"][index];
         }
     }
 
     if (applicationData["customLabels"]) {
         for (let index = 0; index < applicationData["customLabels"].length; index++) {
-            applicationData["customLabels"][index] = rulesAndLabelPath + applicationData["customLabels"][index];
+            applicationData["customLabels"][index] =
+                rulesAndLabelPath + applicationData["customLabels"][index];
         }
     }
 
     return applicationData;
+}
+
+export function trimAppNames(apps: string[]): string[] {
+    let index = 0;
+    for (index = 0; index < apps.length; index++) {
+        let temp = apps[index].split("/");
+        apps[index] = temp[temp.length - 1];
+    }
+
+    return apps;
 }
