@@ -5,3 +5,6 @@ export const packageSwitch = "span.pf-c-switch__toggle";
 export const advancedOptionSwitch = "div.pf-c-form__group-control > label > input";
 export const enableRuleSwitch = "label.pf-c-switch > input";
 export const deleteProjectInput = "input#matchText";
+export const serverPathInput = "input#serverPath";
+export const isExplodedCheckBox = "input#isExploded";
+export const inputSources = "input[placeholder='Select sources']";

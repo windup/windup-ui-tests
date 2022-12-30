@@ -1,4 +1,5 @@
 import {
+    addServerPath,
     click,
     clickByText,
     importFile,
@@ -16,6 +17,7 @@ import {
     deleteButton,
     disableTattletale,
     eapCard,
+    MINUTE,
     next,
     projects,
     save,
@@ -28,6 +30,7 @@ import {
     advancedOptionSwitch,
     deleteProjectInput,
     enableRuleSwitch,
+    inputSources,
     packageSwitch,
     projectDescriptionInput,
     projectNameInput,
@@ -96,7 +99,7 @@ export class Projects {
 
     //Function to input the project name (mandatory) and description (optional)
     enterProjectDetails(name: string, desc?: string): void {
-        //TODO: Add validation that "Project Details" page is reached
+        cy.contains("h5", "Project details", { timeout: 120 * SEC });
 
         inputText(projectNameInput, this.name);
         if (desc) inputText(projectDescriptionInput, this.desc);
@@ -108,9 +111,17 @@ export class Projects {
     //Function to attach the binary files or providing the project server path to analyse
     addApplications(apps: string[]): void {
         //TODO: Add validation that "Add Applications" page is reached
+        cy.contains("h5", "Add applications", { timeout: 120 * SEC });
         //TODO: Add "Server path" support to this function.
 
-        apps.forEach((app) => importFile(app));
+        apps.forEach(function (app) {
+            if (app.includes(".war") || app.includes(".ear") || app.includes(".jar")) {
+                importFile(app);
+            } else {
+                addServerPath(app);
+            }
+        });
+        cy.wait(MINUTE);
         shouldBeEnabled(primaryButton, next);
         clickByText(primaryButton, next);
     }
@@ -118,7 +129,7 @@ export class Projects {
     //Function to get all the target technologies one by one and send for selection
     selectTarget(targets: string[]): void {
         //TODO: Add validation that "Select Target" page is reached
-
+        cy.contains("h5", "Select transformation target", { timeout: 120 * SEC });
         clickByText("h4", eapCard);
         targets.forEach((target) => this.selectCard(target));
 
@@ -145,6 +156,7 @@ export class Projects {
     //Function to exclude or include some packages for analysis (Both Optional)
     selectPackages(excludePackages?: string[], includePackages?: string[]): void {
         //TODO: Add validation that "Select Packages" page is reached
+        cy.contains("h5", "Select packages", { timeout: 120 * SEC });
 
         if (excludePackages || includePackages) {
             click(packageSwitch);
@@ -157,6 +169,7 @@ export class Projects {
     //Function to provide some custom rules to be used in the analysis (Optional)
     addCustomRules(rules?: string[]): void {
         //TODO: Add validation that "Custom rules" page is reached
+        cy.contains("h5", "Custom rules", { timeout: 120 * SEC });
         //TODO: Add "Server path" support to this function.
 
         if (rules) {
@@ -175,6 +188,7 @@ export class Projects {
     //Function to provide some custom labels to be used in the analysis (Optional)
     addCustomLabels(labels?: string[]): void {
         //TODO: Add validation that "Custom Labels" page is reached
+        cy.contains("h5", "Custom labels", { timeout: 120 * SEC });
         if (labels) {
             clickByText(primaryButton, addLabel);
             labels.forEach((label) => importFile(label));
@@ -191,9 +205,17 @@ export class Projects {
     //Function to select the advanced options and enable those one by one (Optional)
     enableAdvancedOptions(advancedOptions?: advancedOptionsData): void {
         //TODO: Add validation that "Advanced options" page is reached
-        if (advancedOptions)
+        cy.contains("h5", "Advanced options", { timeout: 120 * SEC });
+        if (advancedOptions) {
+            if (advancedOptions.sources) {
+                advancedOptions.sources.forEach((source) => {
+                    inputText(inputSources, source);
+                    clickByText("button", source);
+                });
+            }
             if (advancedOptions.options)
                 advancedOptions.options.forEach((option) => this.enableOption(option));
+        }
 
         //TODO: Add support for other options
         shouldBeEnabled(primaryButton, next);
@@ -217,6 +239,7 @@ export class Projects {
     //Function to save the project and also run the analysis using SaveAndRun button.
     saveProjectAndRunAnalysis(): void {
         //TODO: Add validation that "Review" page is reached
+        cy.contains("h5", "Review project details", { timeout: 120 * SEC });
         shouldBeEnabled(primaryButton, saveAndRun);
         clickByText(primaryButton, saveAndRun);
     }

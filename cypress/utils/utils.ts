@@ -1,12 +1,21 @@
-import { appsPath, rulesAndLabelPath, SEC } from "../e2e/types/constants";
+import {
+    appsPath,
+    MINUTE,
+    rulesAndLabelPath,
+    SEC,
+    serverPath,
+    upload,
+} from "../e2e/types/constants";
 import { projectData } from "../e2e/types/types";
-import { chooseProject } from "../e2e/views/common.view";
+import { chooseProject, pageTab } from "../e2e/views/common.view";
 import * as data from "../utils/data_utils";
 import { navMenu } from "../e2e/views/menu.view";
+import { isExplodedCheckBox, serverPathInput } from "../e2e/views/projects.view";
 
 let userName = Cypress.env("user");
 let userPassword = Cypress.env("pass");
 const windupUiUrl = Cypress.env("windupUrl");
+const workspaceUrl = Cypress.env("workspaceUrl");
 const { _ } = Cypress;
 
 export function inputText(fieldId: string, text: any): void {
@@ -74,12 +83,13 @@ export function navigateTo(page: string): void {
 }
 
 export function importFile(app: string): void {
+    clickByText(pageTab, upload);
     cy.get('input[type="file"]', { timeout: 5 * SEC }).invoke("show");
     cy.get('input[type="file"]', { timeout: 5 * SEC }).selectFile(app, {
         action: "drag-drop",
     });
 
-    cy.wait(2000);
+    cy.wait(SEC);
 }
 
 // Perform edit/delete action on the specified row selector by clicking a text button
@@ -145,4 +155,12 @@ export function trimAppNames(apps: string[]): string[] {
     }
 
     return apps;
+}
+
+export function addServerPath(path: string): void {
+    cy.wait(SEC);
+    clickByText(pageTab, serverPath);
+    inputText(serverPathInput, workspaceUrl + "/" + path);
+    click(isExplodedCheckBox);
+    cy.wait(SEC);
 }

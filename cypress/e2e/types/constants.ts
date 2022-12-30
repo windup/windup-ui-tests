@@ -45,6 +45,8 @@ export const azureContainerApps = "azure-container-apps";
 export const eapCard = "Application server migration to EAP";
 export const addRule = "Add rule";
 export const addLabel = "Add label";
+export const serverPath = "Server path";
+export const upload = "Upload";
 
 //Applications Page Constants
 export const addApplication = "Add application";
