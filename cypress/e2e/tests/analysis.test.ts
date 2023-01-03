@@ -23,7 +23,7 @@ describe("Analysis", () => {
         analysis.validateStoryPoints(trimAppNames(projectData["apps"]), projectData["storyPoints"]);
     });
 
-    it("Analysis for target Containerization ", function () {
+    it("Analysis for target Containerization", function () {
         let projectData = getRandomApplicationData(this.projectData["Containerization"]);
         const project = new Projects(projectData);
         project.create();
@@ -32,5 +32,53 @@ describe("Analysis", () => {
         analysis.verifyLatestAnalysisStatus(completed);
         analysis.openReport();
         analysis.validateStoryPoints(trimAppNames(projectData["apps"]), projectData["storyPoints"]);
+    });
+
+    it("Analysis for target Quarkus", function () {
+        let projectData = getRandomApplicationData(this.projectData["3_SB_Apps"]);
+        const project = new Projects(projectData);
+        project.create();
+        const analysis = new Analysis(projectData["name"]);
+        analysis.runAnalysis();
+        analysis.verifyLatestAnalysisStatus(completed);
+        analysis.openReport();
+        analysis.validateStoryPoints(trimAppNames(projectData["apps"]), projectData["storyPoints"]);
+        analysis.validateIncidents(trimAppNames(projectData["apps"]), projectData["incidents"]);
+    });
+
+    it("Analysis for target Quarkus + OpenJDK 11", function () {
+        let projectData = getRandomApplicationData(this.projectData["3_SB_Apps_2_targets"]);
+        const project = new Projects(projectData);
+        project.create();
+        const analysis = new Analysis(projectData["name"]);
+        analysis.runAnalysis();
+        analysis.verifyLatestAnalysisStatus(completed);
+        analysis.openReport();
+        analysis.validateStoryPoints(trimAppNames(projectData["apps"]), projectData["storyPoints"]);
+        analysis.validateIncidents(trimAppNames(projectData["apps"]), projectData["incidents"]);
+    });
+
+    it("Analysis for Complete Duke with SourceMode", function () {
+        let projectData = getRandomApplicationData(this.projectData["complete-duke_SM"]);
+        const project = new Projects(projectData);
+        project.create();
+        const analysis = new Analysis(projectData["name"]);
+        analysis.runAnalysis();
+        analysis.verifyLatestAnalysisStatus(completed);
+        analysis.openReport();
+        analysis.validateStoryPoints(trimAppNames(projectData["apps"]), projectData["storyPoints"]);
+        analysis.validateIncidents(trimAppNames(projectData["apps"]), projectData["incidents"]);
+    });
+
+    it("Analysis for JEE Example app", function () {
+        let projectData = getRandomApplicationData(this.projectData["jee-example-app"]);
+        const project = new Projects(projectData);
+        project.create();
+        const analysis = new Analysis(projectData["name"]);
+        analysis.runAnalysis();
+        analysis.verifyLatestAnalysisStatus(completed);
+        analysis.openReport();
+        analysis.validateStoryPoints(trimAppNames(projectData["apps"]), projectData["storyPoints"]);
+        analysis.validateIncidents(trimAppNames(projectData["apps"]), projectData["incidents"]);
     });
 });

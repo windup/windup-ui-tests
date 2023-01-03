@@ -9,6 +9,7 @@ module.exports = defineConfig({
     },
     env: {
         windupUrl: "localhost:8080",
+        workspaceUrl: "",
     },
     viewportWidth: 1920,
     viewportHeight: 1080,
