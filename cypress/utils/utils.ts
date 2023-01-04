@@ -15,7 +15,7 @@ import { isExplodedCheckBox, serverPathInput } from "../e2e/views/projects.view"
 let userName = Cypress.env("user");
 let userPassword = Cypress.env("pass");
 const windupUiUrl = Cypress.env("windupUrl");
-const workspaceUrl = Cypress.env("workspaceUrl");
+const jenkinsWorkspacePath = Cypress.env("jenkinsWorkspacePath");
 const { _ } = Cypress;
 
 export function inputText(fieldId: string, text: any): void {
@@ -160,7 +160,7 @@ export function trimAppNames(apps: string[]): string[] {
 export function addServerPath(path: string): void {
     cy.wait(SEC);
     clickByText(pageTab, serverPath);
-    inputText(serverPathInput, workspaceUrl + "/" + path);
+    inputText(serverPathInput, jenkinsWorkspacePath + "/" + path);
     click(isExplodedCheckBox);
     cy.wait(SEC);
 }
