@@ -234,6 +234,7 @@ export class Projects {
         //TODO: Add validation that "Review" page is reached
         shouldBeEnabled(primaryButton, save);
         clickByText(primaryButton, save);
+        cy.wait(MINUTE / 2);
     }
 
     //Function to save the project and also run the analysis using SaveAndRun button.
@@ -242,6 +243,7 @@ export class Projects {
         cy.contains("h5", "Review project details", { timeout: 120 * SEC });
         shouldBeEnabled(primaryButton, saveAndRun);
         clickByText(primaryButton, saveAndRun);
+        cy.wait(MINUTE / 2);
     }
 
     //TODO: Function to edit a project
