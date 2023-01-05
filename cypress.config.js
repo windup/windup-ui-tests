@@ -21,10 +21,10 @@ module.exports = defineConfig({
             charts: true,
             reportPageTitle: "Windup test report",
             embeddedScreenshots: true,
-            inlineAssets: true
+            inlineAssets: true,
         },
         mochaJunitReporterReporterOptions: {
-            mochaFile: "cypress/reports/junit/results-[hash].xml"
-        }
+            mochaFile: "cypress/reports/junit/results-[hash].xml",
+        },
     },
 });

@@ -35,6 +35,7 @@ export class Analysis {
 
     //Function to run the analysis for an existing project
     runAnalysis(): void {
+        shouldBeEnabled(primaryButton, runAnalysisButton);
         clickByText(primaryButton, runAnalysisButton);
         cy.wait(10 * SEC);
     }
@@ -42,6 +43,7 @@ export class Analysis {
     //Function to wait for the analysis to complete and then validate the analysis status as expected.
     verifyLatestAnalysisStatus(status: string): void {
         // Verify the latest analysis status
+        shouldBeEnabled(primaryButton, runAnalysisButton);
         cy.get("table > tbody > tr").eq(0).as("firstRow");
         cy.get("@firstRow")
             .find(statusColumn)
