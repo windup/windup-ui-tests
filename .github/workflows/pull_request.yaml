@@ -7,13 +7,7 @@ on:
 jobs:
   k8s-tests:
     name: Collect test cases
-    runs-on:
-      labels: ubuntu-20.04-16core
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '14'
+    runs-on: ubuntu-latest
     outputs:
       tests: ${{ steps.event.outputs.tests }}
     steps:
@@ -33,7 +27,7 @@ jobs:
     name: Run collected tests
     needs: k8s-tests
     if: ${{ needs.k8s-tests.outputs.tests }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04-16core
     steps:
       - name: start minikube
         id: minikube
