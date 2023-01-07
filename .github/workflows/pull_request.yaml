@@ -1,5 +1,5 @@
 name: Pull request test
-on: [commit]
+on: [push]
 
 jobs:
   k8s-tests:
