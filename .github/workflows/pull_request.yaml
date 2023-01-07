@@ -26,16 +26,13 @@ jobs:
     if: ${{ needs.k8s-tests.outputs.tests }}
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout tackle
-        uses: actions/checkout@v2
-        with:
-          repository: konveyor/tackle
-          path: tackle
       - name: start minikube
         id: minikube
         with:
           minikube-version: 1.24.0
           driver: docker
+          cpus: 12
+          memory: 20g
           kubernetes-version: v1.23.3
         uses: medyagh/setup-minikube@master
     
@@ -54,18 +51,30 @@ jobs:
       - name: Kubectl enable olm
         run: minikube addons enable olm
 
-      - name: Download Windup
-        run: curl https://download.eng.bos.redhat.com/rcm-guest/staging/jboss-migrationtoolkit/migration-toolkit-for-runtimes-1.0.1.CR1/mtr-1.0.1.CR1-with-authentication.zip -o windup.zip
+      - name: Download OLM
+        run: curl -sL https://github.com/operator-framework/operator-lifecycle-manager/releases/download/v0.22.0/install.sh | bash -s v0.22.0
 
-      - name: Create folder
-        run: mkdir windup-snapshot
+      - name: Install windup-operator
+        run: kubectl create -f https://operatorhub.io/install/windup-operator.yaml
 
-      - name: unzip 
-        run: unzip windup.zip -d windup-snapshot 
-      - name: Create new project
-        run: kubectl new-project windup
-      - name: Run json file
-        run: oc process -f windup-snapshot/openshift/templates/web-template-empty-dir-executor.json | oc create -f - 
+      - name: Sleep 
+        run: sleep 150s
+        shell: bash
+
+      - name: watch your operator come up using next command.
+        run: kubectl get csv -n my-windup-operator
+      - name: Create windup CR
+        run: kubectl apply -f windup_cr.yaml -n my-windup-operator
+
+      - name: Check pod status
+        run: kubectl get pods -n my-windup-operator
+
+      - name: Verify executor
+        run: kubectl wait deployment/windup-executor --for condition=available --timeout=-1s -n my-windup-operator
+      - name: Verify postgresql
+        run: kubectl wait deployment/windup-postgresql --for condition=available --timeout=-1s -n my-windup-operator
+      - name: Verify windup
+        run: kubectl wait deployment/windup --for condition=available --timeout=-1s -n my-windup-operator
 
       - name: Wait for Ingress
         shell: bash
@@ -91,7 +100,7 @@ jobs:
       - name: Install NPM
         run: npm install .
       - name: Run cypress test cases
-        run: npx cypress run --spec ${{ needs.k8s-tests.outputs.tests }} --env user="admin",pass="password",tackleUrl=${{ env.windupUrl }}
+        run: npx cypress run --spec ${{ needs.k8s-tests.outputs.tests }} --env user="admin",pass="password",windupUrl=${{ env.windupUrl }}
 
       - uses: actions/upload-artifact@v1
         if: failure()
