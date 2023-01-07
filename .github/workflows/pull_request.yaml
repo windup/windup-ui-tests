@@ -104,9 +104,3 @@ jobs:
         run: npm install .
       - name: Run cypress test cases
         run: npx cypress run --spec ${{ needs.k8s-tests.outputs.tests }} --env user="admin",pass="password",windupUrl=${{ env.windupUrl }}
-
-      - uses: actions/upload-artifact@v1
-        if: failure()
-        with:
-          name: minikube-tests-screenshots
-          path: cypress/screenshots
