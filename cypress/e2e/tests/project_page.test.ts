@@ -2,12 +2,34 @@ import { getRandomApplicationData, login } from "../../utils/utils";
 import { Projects } from "../models/projects";
 
 describe("Project page", () => {
-    beforeEach("Login", function () {
+
+    before("Login", function () {
+        // Prevent hook from running, if the tag is excluded from run
+
+        // Perform login
         login();
 
+    });
+
+    beforeEach("Persist session", function () {
+        // Save the session and token cookie for maintaining one login session
+        preservecookies();
+       
         cy.fixture("json/data").then(function (projectData) {
             this.projectData = projectData;
         });
+        
+    });
+
+    it("Project CRUD tests", function(){
+        // Project Create, Update and Delete - CRUD
+        const project = new Projects(getRandomApplicationData(this.projectData["BasicApp_eap7"]));
+        project.create();
+
+        //TODO: Add validation to check if project is created successfully
+
+        project.deleteProject(project.name);
+
     });
 
     it("Sort projects", function () {
