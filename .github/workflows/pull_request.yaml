@@ -7,7 +7,13 @@ on:
 jobs:
   k8s-tests:
     name: Collect test cases
-    runs-on: ubuntu-latest
+    runs-on:
+      labels: ubuntu-20.04-16core
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '14'
     outputs:
       tests: ${{ steps.event.outputs.tests }}
     steps:
