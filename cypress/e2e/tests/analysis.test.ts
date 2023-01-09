@@ -81,4 +81,9 @@ describe("Analysis", () => {
         analysis.validateStoryPoints(trimAppNames(projectData["apps"]), projectData["storyPoints"]);
         analysis.validateIncidents(trimAppNames(projectData["apps"]), projectData["incidents"]);
     });
+
+    after("Teardown", function () {
+        login();
+        Projects.deleteAllProjects();
+    });
 });

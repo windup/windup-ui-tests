@@ -10,19 +10,28 @@ import {
     shouldBeEnabled,
 } from "../../utils/utils";
 import {
+    addApplicationsPage,
     addLabel,
     addRule,
+    advancedOptionsPage,
     close,
     createProject,
+    customLabels,
+    customRules,
     deleteButton,
     disableTattletale,
     eapCard,
+    editButton,
     MINUTE,
     next,
+    projectDetailsPage,
     projects,
+    reviewPage,
     save,
     saveAndRun,
     SEC,
+    selectPackages,
+    selectTransformationTarget,
 } from "../types/constants";
 import { advancedOptionsData, projectData } from "../types/types";
 import { dangerButton, kebabMenu, primaryButton } from "../views/common.view";
@@ -32,8 +41,13 @@ import {
     enableRuleSwitch,
     inputSources,
     packageSwitch,
+    projectAppColumn,
+    projectDescriptionColumn,
     projectDescriptionInput,
+    projectNameColumn,
     projectNameInput,
+    projectSearchInput,
+    projectTableFilterButtons,
     targetOptions,
 } from "../views/projects.view";
 
@@ -99,7 +113,7 @@ export class Projects {
 
     //Function to input the project name (mandatory) and description (optional)
     enterProjectDetails(name: string, desc?: string): void {
-        cy.contains("h5", "Project details", { timeout: 120 * SEC });
+        cy.contains("h5", projectDetailsPage, { timeout: 120 * SEC });
 
         inputText(projectNameInput, this.name);
         if (desc) inputText(projectDescriptionInput, this.desc);
@@ -111,7 +125,7 @@ export class Projects {
     //Function to attach the binary files or providing the project server path to analyse
     addApplications(apps: string[]): void {
         //TODO: Add validation that "Add Applications" page is reached
-        cy.contains("h5", "Add applications", { timeout: 120 * SEC });
+        cy.contains("h5", addApplicationsPage, { timeout: 120 * SEC });
         //TODO: Add "Server path" support to this function.
 
         apps.forEach(function (app) {
@@ -129,7 +143,7 @@ export class Projects {
     //Function to get all the target technologies one by one and send for selection
     selectTarget(targets: string[]): void {
         //TODO: Add validation that "Select Target" page is reached
-        cy.contains("h5", "Select transformation target", { timeout: 120 * SEC });
+        cy.contains("h5", selectTransformationTarget, { timeout: 120 * SEC });
         clickByText("h4", eapCard);
         targets.forEach((target) => this.selectCard(target));
 
@@ -156,7 +170,7 @@ export class Projects {
     //Function to exclude or include some packages for analysis (Both Optional)
     selectPackages(excludePackages?: string[], includePackages?: string[]): void {
         //TODO: Add validation that "Select Packages" page is reached
-        cy.contains("h5", "Select packages", { timeout: 120 * SEC });
+        cy.contains("h5", selectPackages, { timeout: 120 * SEC });
 
         if (excludePackages || includePackages) {
             click(packageSwitch);
@@ -169,7 +183,7 @@ export class Projects {
     //Function to provide some custom rules to be used in the analysis (Optional)
     addCustomRules(rules?: string[]): void {
         //TODO: Add validation that "Custom rules" page is reached
-        cy.contains("h5", "Custom rules", { timeout: 120 * SEC });
+        cy.contains("h5", customRules, { timeout: 120 * SEC });
         //TODO: Add "Server path" support to this function.
 
         if (rules) {
@@ -188,7 +202,7 @@ export class Projects {
     //Function to provide some custom labels to be used in the analysis (Optional)
     addCustomLabels(labels?: string[]): void {
         //TODO: Add validation that "Custom Labels" page is reached
-        cy.contains("h5", "Custom labels", { timeout: 120 * SEC });
+        cy.contains("h5", customLabels, { timeout: 120 * SEC });
         if (labels) {
             clickByText(primaryButton, addLabel);
             labels.forEach((label) => importFile(label));
@@ -205,7 +219,7 @@ export class Projects {
     //Function to select the advanced options and enable those one by one (Optional)
     enableAdvancedOptions(advancedOptions?: advancedOptionsData): void {
         //TODO: Add validation that "Advanced options" page is reached
-        cy.contains("h5", "Advanced options", { timeout: 120 * SEC });
+        cy.contains("h5", advancedOptionsPage, { timeout: 120 * SEC });
         if (advancedOptions) {
             if (advancedOptions.sources) {
                 advancedOptions.sources.forEach((source) => {
@@ -234,30 +248,96 @@ export class Projects {
         //TODO: Add validation that "Review" page is reached
         shouldBeEnabled(primaryButton, save);
         clickByText(primaryButton, save);
-        cy.wait(MINUTE / 2);
+        cy.contains("h1", projects, { timeout: 120 * SEC });
     }
 
     //Function to save the project and also run the analysis using SaveAndRun button.
     saveProjectAndRunAnalysis(): void {
         //TODO: Add validation that "Review" page is reached
-        cy.contains("h5", "Review project details", { timeout: 120 * SEC });
+        cy.contains("h5", reviewPage, { timeout: 120 * SEC });
         shouldBeEnabled(primaryButton, saveAndRun);
         clickByText(primaryButton, saveAndRun);
         cy.wait(MINUTE / 2);
     }
 
     //TODO: Function to edit a project
-
-    //TODO: Function to delete a project
-    deleteProject(project: string): void {
+    editProject(newName: string, newDesc: string) {
         cy.wait(SEC);
+        navigateTo(projects);
+        performRowActionByIcon(this.name, kebabMenu);
+        clickByText("button", editButton);
+
+        inputText(projectNameInput, newName);
+        inputText(projectDescriptionInput, newDesc);
+        shouldBeEnabled(primaryButton, save);
+        clickByText(primaryButton, save);
+    }
+
+    // Function to validate a project
+    validateProject(name: string, desc?: string, applications?: string) {
+        cy.wait(SEC);
+        navigateTo(projects);
+        cy.contains(name, { timeout: 120 * SEC })
+            .closest("tr")
+            .within(() => {
+                cy.get(projectNameColumn + " > a").should("have.text", name);
+
+                if (desc) {
+                    cy.get(projectDescriptionColumn).should("have.text", desc);
+                }
+
+                if (applications) {
+                    cy.get(projectAppColumn).should("have.text", applications);
+                }
+            });
+    }
+
+    // Function to delete a project
+    static delete(project: string): void {
+        cy.wait(SEC);
+        navigateTo(projects);
         performRowActionByIcon(project, kebabMenu);
         clickByText("button", deleteButton);
-
+        cy.contains('span', projectDetailsPage, { timeout: 120 * SEC });
         inputText(deleteProjectInput, project);
         shouldBeEnabled(dangerButton, deleteButton);
         clickByText(dangerButton, deleteButton);
+        cy.wait(10*SEC);
     }
-    //TODO: Function to Validate Project is created
-    validateProjectCreation(): void {}
+    // Function to Search a project
+    static searchProject(projectName: string): void {
+        cy.wait(SEC);
+        navigateTo(projects);
+        inputText(projectSearchInput, projectName);
+        cy.get("table > tbody > tr").eq(0).as("firstRow");
+        cy.get("@firstRow")
+            .find(projectNameColumn)
+            .find("a")
+            .first()
+            .then(($a) => {
+                expect($a.text()).to.eq(projectName);
+            });
+    }
+
+    static sortProjectsBy(buttonText: string): void {
+        cy.wait(SEC);
+        clickByText(projectTableFilterButtons, buttonText);
+        cy.wait(SEC);
+    }
+
+    static matchProjectOrder(projects: string[]) {
+        let index = 0;
+        for (index = 0; index < projects.length; index++) {
+            cy.get(projectNameColumn + " > a")
+                .eq(index)
+                .should("have.text", projects[index]);
+        }
+    }
+
+    static deleteAllProjects() {
+        cy.get(projectNameColumn + " > a").each(($project) => {
+            Projects.delete($project.text());
+            cy.wait(20 * SEC);
+        });
+    }
 }
