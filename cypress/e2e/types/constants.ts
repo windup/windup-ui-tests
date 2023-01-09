@@ -47,6 +47,12 @@ export const addRule = "Add rule";
 export const addLabel = "Add label";
 export const serverPath = "Server path";
 export const upload = "Upload";
+export const reviewPage = "Review project details";
+export const advancedOptionsPage = "Advanced options";
+export const selectPackages = "Select packages";
+export const selectTransformationTarget = "Select transformation target";
+export const addApplicationsPage = "Add applications";
+export const projectDetailsPage = "Project details";
 
 //Applications Page Constants
 export const addApplication = "Add application";
@@ -59,6 +65,7 @@ export const cancel = "Cancel";
 export const save = "Save";
 export const saveAndRun = "Save and run";
 export const deleteButton = "Delete";
+export const editButton = "Edit";
 
 //Analysis Page constants
 export const MINUTE = 60000;

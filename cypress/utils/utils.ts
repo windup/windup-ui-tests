@@ -1,13 +1,15 @@
 import {
     appsPath,
+    createProject,
     MINUTE,
+    projects,
     rulesAndLabelPath,
     SEC,
     serverPath,
     upload,
 } from "../e2e/types/constants";
 import { projectData } from "../e2e/types/types";
-import { chooseProject, pageTab } from "../e2e/views/common.view";
+import { chooseProject, pageTab, primaryButton } from "../e2e/views/common.view";
 import * as data from "../utils/data_utils";
 import { navMenu } from "../e2e/views/menu.view";
 import { isExplodedCheckBox, serverPathInput } from "../e2e/views/projects.view";
@@ -50,7 +52,8 @@ export function click(fieldId: string, isForced = true): void {
 //TODO: Login functionality for secure URL
 export function login(username?, password?: string): void {
     cy.visit(windupUiUrl, { timeout: 120 * SEC });
-    cy.wait(5000);
+    shouldBeEnabled(primaryButton, createProject);
+    cy.wait(20 * SEC);
 }
 
 export function selectFromDropList(dropList, item: string) {
@@ -79,7 +82,7 @@ export function uploadApplications(fileName: string): void {
 
 export function navigateTo(page: string): void {
     clickByText(navMenu, page);
-    cy.wait(10000);
+    cy.wait(MINUTE / 2);
 }
 
 export function importFile(app: string): void {

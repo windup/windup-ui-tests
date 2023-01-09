@@ -32,4 +32,9 @@ describe("Applications page", () => {
         //TODO: Validating the app count = 2 for the project
         application.validateAppCount(2);
     });
+
+    after("Teardown", function () {
+        login();
+        Projects.deleteAllProjects();
+    });
 });

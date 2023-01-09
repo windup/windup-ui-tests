@@ -8,3 +8,8 @@ export const deleteProjectInput = "input#matchText";
 export const serverPathInput = "input#serverPath";
 export const isExplodedCheckBox = "input#isExploded";
 export const inputSources = "input[placeholder='Select sources']";
+export const projectSearchInput = "input[aria-label='Filter by name']";
+export const projectNameColumn = "td[data-label='Name']";
+export const projectDescriptionColumn = "td[data-label='Description']";
+export const projectAppColumn = "td[data-label='Applications']";
+export const projectTableFilterButtons = "button.pf-c-table__button > div > span";
