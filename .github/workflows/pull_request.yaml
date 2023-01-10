@@ -37,8 +37,8 @@ jobs:
           driver: docker
           container-runtime: containerd
           kubernetes-version: v1.22.3
-          cpus: 10
-          memory: 4000m
+          cpus: 12
+          memory: 20g
           cni: bridge
           addons: registry,ingress
           extra-config: 'kubelet.max-pods=10'
