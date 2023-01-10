@@ -37,7 +37,7 @@ jobs:
           driver: docker
           container-runtime: containerd
           kubernetes-version: v1.22.3
-          cpus: 4
+          cpus: 10
           memory: 4000m
           cni: bridge
           addons: registry,ingress
@@ -73,12 +73,12 @@ jobs:
       - name: Check pod status
         run: kubectl get pods -n my-windup-operator
 
-      - name: Verify executor
-        run: kubectl wait deployment/windup-executor --for condition=available --timeout=-1s -n my-windup-operator
       - name: Verify postgresql
         run: kubectl wait deployment/windup-postgresql --for condition=available --timeout=-1s -n my-windup-operator
       - name: Verify windup
         run: kubectl wait deployment/windup --for condition=available --timeout=-1s -n my-windup-operator
+      - name: Verify executor
+        run: kubectl wait deployment/windup-executor --for condition=available --timeout=-1s -n my-windup-operator
 
       - name: Wait for Ingress
         shell: bash

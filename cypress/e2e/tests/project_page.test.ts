@@ -8,6 +8,7 @@ describe("Project page", () => {
         cy.fixture("json/data").then(function (projectData) {
             this.projectData = projectData;
         });
+        
     });
 
     it("Sort projects", function () {
