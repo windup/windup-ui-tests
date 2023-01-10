@@ -68,7 +68,7 @@ jobs:
       - name: watch your operator come up using next command.
         run: kubectl get csv -n my-windup-operator
       - name: Create windup CR
-        run: kubectl apply -f https://raw.githubusercontent.com/sshveta/windup-ui-tests/workflows/.github/windup_cr.yaml -n my-windup-operator
+        run: kubectl apply -f https://raw.githubusercontent.com/sshveta/windup-ui-tests/workflows/.github/workflows/windup_cr.yaml -n my-windup-operator
 
       - name: Check pod status
         run: kubectl get pods -n my-windup-operator
