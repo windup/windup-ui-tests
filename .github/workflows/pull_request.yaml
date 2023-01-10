@@ -38,6 +38,12 @@ jobs:
           kubernetes-version: v1.22.3
           memory: 20g
           cpus: 10
+      - name: minikube config set cpus 12
+        run: minikube config set cpus 12
+      - name: minikube stop
+        run: minikube stop
+      - name: minikube start
+        run: minikube start 
       - name: Kubectl enable addons ingress
         run: minikube addons enable ingress
       - name: Kubectl enable addons registry
