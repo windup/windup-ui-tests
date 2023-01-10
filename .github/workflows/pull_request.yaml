@@ -41,8 +41,6 @@ jobs:
           memory: 20g
           cni: bridge
           addons: registry,ingress
-          extra-config: 'kubelet.max-pods=10'
-          mount-path: '/Users/user1/test-files:/testdata'
    
       - name: Kubectl enable addons ingress
         run: minikube addons enable ingress
