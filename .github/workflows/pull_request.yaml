@@ -58,10 +58,6 @@ jobs:
         run: minikube addons enable dashboard
       - name: Kubectl enable olm
         run: minikube addons enable olm
-
-      - name: Download OLM
-        run: curl -sL https://github.com/operator-framework/operator-lifecycle-manager/releases/download/v0.22.0/install.sh | bash -s v0.22.0
-
       - name: Install windup-operator
         run: kubectl create -f https://operatorhub.io/install/windup-operator.yaml
 
