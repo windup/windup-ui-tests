@@ -8,7 +8,7 @@ describe("Project page", () => {
         cy.fixture("json/data").then(function (projectData) {
             this.projectData = projectData;
         });
-        
+
     });
 
     it("Sort projects", function () {
@@ -16,6 +16,7 @@ describe("Project page", () => {
             getRandomApplicationData(this.projectData["Containerization"])
         );
         project1.create();
+        
 
         const project2 = new Projects(getRandomApplicationData(this.projectData["BasicApp_eap7"]));
         project2.create();
