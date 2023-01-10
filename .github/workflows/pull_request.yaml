@@ -37,7 +37,7 @@ jobs:
           container-runtime: containerd
           kubernetes-version: v1.22.3
           memory: 20g
-          cpus: 12
+          cpus: 10
       - name: Kubectl enable addons ingress
         run: minikube addons enable ingress
       - name: Kubectl enable addons registry
