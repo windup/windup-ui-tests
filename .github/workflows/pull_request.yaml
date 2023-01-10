@@ -34,7 +34,7 @@ jobs:
         with:
           minikube-version: 1.24.0
           driver: docker
-          cpus: 12
+          cpus: 4
           memory: 20g
           kubernetes-version: v1.23.3
         uses: medyagh/setup-minikube@master
