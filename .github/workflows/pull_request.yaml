@@ -29,20 +29,21 @@ jobs:
     if: ${{ needs.k8s-tests.outputs.tests }}
     runs-on: ubuntu-latest
     steps:
-    - name: start minikube
-      uses: medyagh/setup-minikube@latest
-      id: minikube
-      with:
-        minikube-version: 1.24.0
-        driver: docker
-        container-runtime: containerd
-        kubernetes-version: v1.22.3
-        cpus: 4
-        memory: 4000m
-        cni: bridge
-        addons: registry,ingress
-        extra-config: 'kubelet.max-pods=10'
-        mount-path: '/Users/user1/test-files:/testdata'  
+      - name: start minikube
+        uses: medyagh/setup-minikube@latest
+        id: minikube
+        with:
+          minikube-version: 1.24.0
+          driver: docker
+          container-runtime: containerd
+          kubernetes-version: v1.22.3
+          cpus: 4
+          memory: 4000m
+          cni: bridge
+          addons: registry,ingress
+          extra-config: 'kubelet.max-pods=10'
+          mount-path: '/Users/user1/test-files:/testdata'
+   
       - name: Kubectl enable addons ingress
         run: minikube addons enable ingress
       - name: Kubectl enable addons registry
