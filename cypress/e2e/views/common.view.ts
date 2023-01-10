@@ -15,3 +15,4 @@ export const kebabMenu = "div > button[aria-label='Actions']";
 export const chooseProject = "button#pf-context-selector-toggle-id-0";
 export const trTag = "tr";
 export const pageTab = "span.pf-c-tabs__item-text";
+export const tableBody = "table > tbody";

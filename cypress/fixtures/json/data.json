@@ -39,22 +39,22 @@
                 "mandatory": 5,
                 "optional": 9,
                 "potential": 26,
-                "informational": 112,
-                "total": 152
+                "informational": 105,
+                "total": 145
             },
             {
                 "mandatory": 14,
                 "optional": 0,
                 "potential": 31,
-                "informational": 68,
-                "total": 113
+                "informational": 58,
+                "total": 103
             },
             {
                 "mandatory": 26,
                 "optional": 0,
                 "potential": 21,
-                "informational": 66,
-                "total": 113
+                "informational": 59,
+                "total": 106
             }
         ]
     },
@@ -73,22 +73,22 @@
                 "mandatory": 7,
                 "optional": 9,
                 "potential": 108,
-                "informational": 112,
-                "total": 236
+                "informational": 105,
+                "total": 229
             },
             {
                 "mandatory": 14,
                 "optional": 0,
                 "potential": 50,
-                "informational": 68,
-                "total": 132
+                "informational": 58,
+                "total": 122
             },
             {
                 "mandatory": 26,
                 "optional": 0,
                 "potential": 147,
-                "informational": 66,
-                "total": 239
+                "informational": 59,
+                "total": 232
             }
         ]
     },

@@ -123,6 +123,7 @@ export function performRowActionByIcon(itemName: string, action: string): void {
 export function selectProject(projectName: string): void {
     click(chooseProject);
     clickByText("button", projectName);
+    cy.wait(20 * SEC);
 }
 
 export function getRandomApplicationData(applicationData): projectData {
