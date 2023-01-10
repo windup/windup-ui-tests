@@ -34,10 +34,10 @@ jobs:
         with:
           minikube-version: 1.24.0
           driver: docker
-          kubernetes-version: v1.23.3
+          kubernetes-version: v1.22.3
           cpus: 12
           memory: 20g
-        uses: medyagh/setup-minikube@master
+        uses: medyagh/setup-minikube@latest
    
       - name: Kubectl enable addons ingress
         run: minikube addons enable ingress
