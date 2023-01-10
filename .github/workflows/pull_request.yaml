@@ -34,7 +34,7 @@ jobs:
         with:
           minikube version: v1.28.0
           kubernetes version: v1.22.3
-          start args: "--driver=docker --addons=registry --addons=ingress --cpus=12 --memory=20g"   
+          start args: "--addons=registry --addons=ingress --cpus=12 --memory=20g"   
       - name: Kubectl enable addons ingress
         run: minikube addons enable ingress
       - name: Kubectl enable addons registry
