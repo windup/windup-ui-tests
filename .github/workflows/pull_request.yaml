@@ -7,7 +7,7 @@ on:
 jobs:
   k8s-tests:
     name: Collect test cases
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04-16core
     outputs:
       tests: ${{ steps.event.outputs.tests }}
     steps:
