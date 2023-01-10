@@ -30,12 +30,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: start minikube
-        uses: hiberbee/github-action-minikube@latest
-        with:
-          minikube-version: v1.28.0
-          kubernetes-version: v1.22.3
-          cpus: 12
-          addons: ingress
+        uses: hiberbee/github-action-minikube@latest 
       - name: Kubectl enable addons ingress
         run: minikube addons enable ingress
       - name: Kubectl enable addons registry
