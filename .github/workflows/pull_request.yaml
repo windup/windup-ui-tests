@@ -30,11 +30,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: start minikube
-        uses: manusa/actions-setup-minikube@v2.7.2
+        uses: hiberbee/github-action-minikube@latest
         with:
           minikube version: v1.28.0
           kubernetes version: v1.22.3
-          start args: "--addons=registry --addons=ingress --cpus=12 --memory=20g"   
+          cpus: 12
+          memory: 20g
       - name: Kubectl enable addons ingress
         run: minikube addons enable ingress
       - name: Kubectl enable addons registry
