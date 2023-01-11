@@ -5,7 +5,6 @@ import {
     importFile,
     inputText,
     navigateTo,
-    performRowAction,
     performRowActionByIcon,
     shouldBeEnabled,
 } from "../../utils/utils";
@@ -19,7 +18,6 @@ import {
     customLabels,
     customRules,
     deleteButton,
-    disableTattletale,
     eapCard,
     editButton,
     MINUTE,
@@ -249,6 +247,7 @@ export class Projects {
         shouldBeEnabled(primaryButton, save);
         clickByText(primaryButton, save);
         cy.contains("h1", projects, { timeout: 120 * SEC });
+        cy.wait(20 * SEC);
     }
 
     //Function to save the project and also run the analysis using SaveAndRun button.
@@ -298,11 +297,11 @@ export class Projects {
         navigateTo(projects);
         performRowActionByIcon(project, kebabMenu);
         clickByText("button", deleteButton);
-        cy.contains('span', projectDetailsPage, { timeout: 120 * SEC });
+        cy.contains("span", projectDetailsPage, { timeout: 120 * SEC });
         inputText(deleteProjectInput, project);
         shouldBeEnabled(dangerButton, deleteButton);
         clickByText(dangerButton, deleteButton);
-        cy.wait(10*SEC);
+        cy.wait(10 * SEC);
     }
     // Function to Search a project
     static searchProject(projectName: string): void {

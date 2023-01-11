@@ -1,8 +1,6 @@
-import cypress from "cypress";
 import {
     clickByText,
     navigateTo,
-    performRowActionByIcon,
     selectProject,
     shouldBeEnabled,
 } from "../../utils/utils";
@@ -44,7 +42,7 @@ export class Analysis {
     verifyLatestAnalysisStatus(status: string): void {
         // Verify the latest analysis status
         shouldBeEnabled(primaryButton, runAnalysisButton);
-        cy.wait(20*SEC);
+        cy.wait(20 * SEC);
         cy.get("table > tbody > tr").eq(0).as("firstRow");
         cy.get("@firstRow")
             .find(statusColumn)
