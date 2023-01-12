@@ -17,6 +17,7 @@ describe("Project page", () => {
         );
         project1.create();      
 
+        
         const project2 = new Projects(getRandomApplicationData(this.projectData["BasicApp_eap7"]));
         project2.create();
 
