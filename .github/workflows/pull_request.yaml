@@ -1,5 +1,8 @@
 name: Pull request test
 on: pull_request
+  push:
+    branches:
+    - workflows
 
 jobs:
   k8s-tests:
@@ -26,74 +29,17 @@ jobs:
     if: ${{ needs.k8s-tests.outputs.tests }}
     runs-on: ubuntu-latest
     steps:
-      - name: start minikube
-        uses: medyagh/setup-minikube@latest
-        with:
-          minikube-version: 1.24.0
-          driver: docker
-          container-runtime: containerd
-          kubernetes-version: v1.22.3
-          memory: 20g
-          cpus: 12
-      - name: minikube config set cpus 12
-        run: minikube config set cpus 12
-      - name: minikube stop
-        run: minikube stop
-      - name: minikube start
-        run: minikube start 
-      - name: Kubectl enable addons ingress
-        run: minikube addons enable ingress
-      - name: Kubectl enable addons registry
-        run: minikube addons enable registry
-      - name: Validate Minikube
-        run: minikube status | grep Running
-      - name: Validate enabled addon in arg
-        run: minikube addons list -o json | jq '.registry.Status' | grep enabled
-      - name: Validate Cluster
-        run: kubectl get nodes
-      - name: Kubectl enable addons
-        run: minikube addons enable dashboard
-      - name: Kubectl enable olm
-        run: minikube addons enable olm
-      - name: Install windup-operator
-        run: kubectl create -f https://operatorhub.io/install/windup-operator.yaml
-
-      - name: Sleep 
-        run: sleep 150s
-        shell: bash
-
-      - name: watch your operator come up using next command.
-        run: kubectl get csv -n my-windup-operator
-      - name: Create windup CR
-        run: kubectl apply -f https://raw.githubusercontent.com/sshveta/windup-ui-tests/workflows/.github/workflows/windup_cr.yaml -n my-windup-operator
-
-      - name: Check pod status
-        run: kubectl get pods -n my-windup-operator
-
-      - name: Verify postgresql
-        run: kubectl wait deployment/windup-postgresql --for condition=available --timeout=-1s -n my-windup-operator
-      - name: Verify windup
-        run: kubectl wait deployment/windup --for condition=available --timeout=-1s -n my-windup-operator
-      - name: Verify executor
-        run: kubectl wait deployment/windup-executor --for condition=available --timeout=-1s -n my-windup-operator
-
-      - name: Wait for Ingress
-        shell: bash
+      - name: Print application URL
+        env:
+          ROUTE: http://mtr-mtr.apps.mig14.cnv-qe.rhcloud.com
         run: |
-          bash -c 'external_ip="";
-          echo $external_ip;
-          while [[ -z $external_ip ]] 
-            do 
-              echo "Waiting for end point..."
-                external_ip=$(kubectl get ingress windup --template="{{range.status.loadBalancer.ingress}}{{.ip}}{{end}}" -n windup);[[ -z $external_ip ]] &&
-                echo $external_ip;
-                sleep 10;
-            done
-          echo "End point ready:" &&
-          echo $external_ip;
-          export endpoint=$(minikube ip);
-          echo "windupUrl=https://$endpoint" >>$GITHUB_ENV
-        
+          [[ -n ${{ env.ROUTE }} ]] || (echo "Determining application route failed in previous step"; exit 1)
+          echo
+          echo "======================== Your application is available at: ========================"
+          echo ${{ env.ROUTE }}
+          echo "==================================================================================="
+          echo
+          echo "Your app can be taken down with: \"oc delete all --selector='${{ env.SELECTOR }}'\""
 
       - name: Checkout to pull request branch
         uses: actions/checkout@v2
@@ -101,4 +47,4 @@ jobs:
       - name: Install NPM
         run: npm install .
       - name: Run cypress test cases
-        run: npx cypress run --spec ${{ needs.k8s-tests.outputs.tests }} --env user="admin",pass="password",windupUrl=${{ env.windupUrl }}
+        run: npx cypress run --spec ${{ needs.k8s-tests.outputs.tests }} --env user="admin",pass="password",windupUrl=${{ env.ROUTE }}
