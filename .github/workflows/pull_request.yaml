@@ -1,8 +1,5 @@
 name: Pull request test
-on:
-  push:
-    branches:
-    - workflows
+on: pull_request
 
 jobs:
   k8s-tests:
