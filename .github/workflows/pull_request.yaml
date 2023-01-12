@@ -47,4 +47,4 @@ jobs:
       - name: Install NPM
         run: npm install .
       - name: Run cypress test cases
-        run: npx cypress run --spec ${{ needs.k8s-tests.outputs.tests }} --env user="admin",pass="password",windupUrl=${{ env.ROUTE }}
+        run: npx cypress run --spec ${{ needs.k8s-tests.outputs.tests }} --env user="admin",pass="password",windupUrl="http://mtr-mtr.apps.mig14.cnv-qe.rhcloud.com"
