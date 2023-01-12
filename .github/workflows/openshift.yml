@@ -148,9 +148,9 @@ jobs:
         echo "Your app can be taken down with: \"oc delete all --selector='${{ env.SELECTOR }}'\""
 
     - name: Checkout to pull request branch
-        uses: actions/checkout@v2
-       # Install NPM dependencies
-      - name: Install NPM
-        run: npm install .
-      - name: Run cypress test cases
-        run: npx cypress run --spec ${{ needs.k8s-tests.outputs.tests }} --env user="admin",pass="password",windupUrl=${{ env.ROUTE }}
+      uses: actions/checkout@v2
+      # Install NPM dependencies
+    - name: Install NPM
+      run: npm install .
+    - name: Run cypress test cases
+      run: npx cypress run --spec ${{ needs.k8s-tests.outputs.tests }} --env user="admin",pass="password",windupUrl=${{ env.ROUTE }}
