@@ -1,0 +1,56 @@
+name: Pull request test
+on: 
+  push:
+    branches:
+    - workflows
+
+jobs:
+  k8s-tests:
+    name: Collect test cases
+    runs-on: ubuntu-latest
+    outputs:
+      tests: ${{ steps.event.outputs.tests }}
+    steps:
+      - name: Checkout to pull request branch
+        uses: actions/checkout@v2
+      - id: file_changes
+        uses: jitterbit/get-changed-files@v1
+        continue-on-error: true
+        with:
+          format: 'json'
+        # Create event to generate ouput of comma separated test files only
+      - id: event
+        run: |
+          test_files=`python3 -c 'print(",".join([file for file in ${{ steps.file_changes.outputs.all }} if ".test.ts" in file]))'`
+          echo "::set-output name=tests::$test_files"
+  k8s:
+    name: Run collected tests
+    needs: k8s-tests
+    if: ${{ needs.k8s-tests.outputs.tests }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print application URL
+        env:
+          ROUTE: http://mtr-mtr.apps.mig14.cnv-qe.rhcloud.com
+        run: |
+          [[ -n ${{ env.ROUTE }} ]] || (echo "Determining application route failed in previous step"; exit 1)
+          echo
+          echo "======================== Your application is available at: ========================"
+          echo ${{ env.ROUTE }}
+          echo "==================================================================================="
+          echo
+          
+
+      - name: Checkout to pull request branch
+        uses: actions/checkout@v2
+       # Install NPM dependencies
+      - name: Install NPM
+        run: npm install .
+      - name: Run cypress test cases
+        run: npx cypress run --spec ${{ needs.k8s-tests.outputs.tests }} --env user="admin",pass="password",windupUrl="http://mtr-mtr.apps.mig14.cnv-qe.rhcloud.com"
+
+      - uses: actions/upload-artifact@v1
+        if: failure()
+        with:
+          name: minikube-tests-screenshots
+          path: cypress/screenshots
