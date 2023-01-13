@@ -39,7 +39,7 @@ jobs:
           echo ${{ env.ROUTE }}
           echo "==================================================================================="
           echo
-          echo "Your app can be taken down with: \"oc delete all --selector='${{ env.SELECTOR }}'\""
+          
 
       - name: Checkout to pull request branch
         uses: actions/checkout@v2
