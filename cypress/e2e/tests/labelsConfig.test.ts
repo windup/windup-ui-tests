@@ -18,7 +18,7 @@ describe("Labels Configuration", () => {
         globalLabels.delete("customWebLogic.windup.label.xml");
     });
 
-    it("Search Custom Global Rule", function () {
+    it("Search Custom Global Label", function () {
         const globalLabels = new LabelsConfiguration();
         let labelsDir = Cypress.env("jenkinsWorkspacePath") + "/cypress/fixtures/xml/";
         globalLabels.add(labelsDir + "customWebLogic.windup.label.xml");

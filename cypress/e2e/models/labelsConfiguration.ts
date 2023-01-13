@@ -14,6 +14,7 @@ import {
     customLabels,
     deleteButton,
     labelsConfiguration,
+    MINUTE,
     SEC,
 } from "../types/constants";
 import {
@@ -57,6 +58,7 @@ export class LabelsConfiguration {
     }
 
     validateCount(count: number): void {
+        cy.wait(MINUTE/2);
         cy.get(tableBody)
             .find(trTag)
             .then((row) => {
