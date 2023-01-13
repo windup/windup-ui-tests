@@ -36,7 +36,7 @@ export function clickByText(fieldId: string, buttonText: string, isForced = true
     cy.contains(fieldId, buttonText, { timeout: 120 * SEC }).click({
         force: isForced,
     });
-    cy.wait(SEC);
+    cy.wait(20*SEC);
 }
 
 export function shouldBeEnabled(fieldId: string, buttonText: string): void {

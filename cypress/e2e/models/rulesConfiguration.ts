@@ -14,6 +14,7 @@ import {
     close,
     customRules,
     deleteButton,
+    MINUTE,
     rulesConfiguration,
     SEC,
 } from "../types/constants";
@@ -46,7 +47,9 @@ export class RulesConfiguration {
     search(rule: string) {
         navigateTo(rulesConfiguration);
         clickByText(pageTab, customRules);
+        cy.wait(10*SEC);
         inputText(customRulesSearch, rule);
+        cy.wait(MINUTE/2);
         cy.get("table > tbody > tr").eq(0).as("firstRow");
         cy.get("@firstRow")
             .find(ruleShortPathColumn + " > span")
@@ -58,6 +61,7 @@ export class RulesConfiguration {
     }
 
     validateCount(count: number): void {
+        cy.wait(MINUTE/2);
         cy.get(tableBody)
             .find(trTag)
             .then((row) => {
