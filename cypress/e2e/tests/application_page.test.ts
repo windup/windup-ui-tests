@@ -3,7 +3,7 @@ import { Applications } from "../models/applications";
 import { Projects } from "../models/projects";
 import { appsPath } from "../types/constants";
 
-describe("Applications page", () => {
+describe(["tier1"], "Applications page", () => {
     beforeEach("Login", function () {
         //Move to Before after adding support for SecureURL.
         login();
@@ -56,7 +56,7 @@ describe("Applications page", () => {
         application.matchAppsOrder(appsDescByDate);
     });
 
-    it("Add/Remove application to existing project", function () {
+    it(["interop"], "Add/Remove application to existing project", function () {
         //Creating a basic project with single application
         let projectData = getRandomApplicationData(this.projectData["BasicApp_eap7"]);
         const project = new Projects(projectData);
