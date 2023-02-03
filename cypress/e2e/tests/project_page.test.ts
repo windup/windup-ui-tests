@@ -1,7 +1,7 @@
 import { getRandomApplicationData, login } from "../../utils/utils";
 import { Projects } from "../models/projects";
 
-describe("Project page", () => {
+describe(["tier1"], "Project page", function () {
     beforeEach("Login", function () {
         login();
 

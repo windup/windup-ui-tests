@@ -2,7 +2,7 @@ import { login } from "../../utils/utils";
 import { RulesConfiguration } from "../models/rulesConfiguration";
 
 
-describe("Rules Configuration", () => {
+describe(["tier2"], "Rules Configuration", () => {
     beforeEach("Login", function () {
         cy.fixture("json/data").then(function (projectData) {
             this.projectData = projectData;

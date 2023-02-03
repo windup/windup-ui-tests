@@ -1,15 +1,20 @@
+/// <reference types='cypress-tags' />
 const { defineConfig } = require("cypress");
+
 
 module.exports = defineConfig({
     e2e: {
         setupNodeEvents(on, config) {
-            // implement node event listeners here
+            const { tagify } = require("cypress-tags");
+            on('file:preprocessor', tagify(config));
         },
         specPattern: "cypress/e2e/**/*.test.ts",
     },
     env: {
         windupUrl: "localhost:8080",
         jenkinsWorkspacePath: "",
+        grepFilterSpecs: true,
+        grepIntegrationFolder: "cypress/e2e/tests/"
     },
     viewportWidth: 1920,
     viewportHeight: 1080,
