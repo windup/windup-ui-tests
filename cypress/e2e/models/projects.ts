@@ -2,6 +2,7 @@ import {
     addServerPath,
     click,
     clickByText,
+    enableOption,
     importFile,
     inputText,
     navigateTo,
@@ -117,6 +118,7 @@ export class Projects {
         if (desc) inputText(projectDescriptionInput, this.desc);
 
         shouldBeEnabled(primaryButton, next);
+        cy.wait(10 * SEC);
         clickByText(primaryButton, next);
     }
 
@@ -226,19 +228,12 @@ export class Projects {
                 });
             }
             if (advancedOptions.options)
-                advancedOptions.options.forEach((option) => this.enableOption(option));
+                advancedOptions.options.forEach((option) => enableOption(option));
         }
 
         //TODO: Add support for other options
         shouldBeEnabled(primaryButton, next);
         clickByText(primaryButton, next);
-    }
-
-    //Function to enable the advanced options using toggle switch like exportcsv, sourceMode, etc.
-    enableOption(option: string): void {
-        const optionSelector = advancedOptionSwitch + "[aria-label='" + option + "']";
-        click(optionSelector);
-        cy.wait(SEC);
     }
 
     //Function to only save the project using Save button.

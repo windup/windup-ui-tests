@@ -1,9 +1,12 @@
+/// <reference types="Cypress" />
+/// <reference types='cypress-tags' />
+
 import { getRandomApplicationData, login, trimAppNames } from "../../utils/utils";
 import { Analysis } from "../models/analysis";
 import { Projects } from "../models/projects";
 import { completed } from "../types/constants";
 
-describe(["tier1"],"Analysis", function () {
+describe(["tier1"], "Analysis", function () {
     beforeEach("Login", function () {
         cy.fixture("json/data").then(function (projectData) {
             this.projectData = projectData;
@@ -80,6 +83,41 @@ describe(["tier1"],"Analysis", function () {
         analysis.openReport();
         analysis.validateStoryPoints(trimAppNames(projectData["apps"]), projectData["storyPoints"]);
         analysis.validateIncidents(trimAppNames(projectData["apps"]), projectData["incidents"]);
+    });
+
+    it("Sort/Search Analysis", function () {
+        //Creating a basic project with single application
+        let projectData = getRandomApplicationData(this.projectData["jee-example-app"]);
+        const project = new Projects(projectData);
+        project.create();
+
+        //Run analysis twice
+        const analysis = new Analysis(projectData["name"]);
+        analysis.runAnalysis();
+        analysis.runAnalysis();
+
+        analysis.sortAnalysisBy("Analysis");
+        analysis.validateAnalysisOrder();
+
+        analysis.searchLatest();
+        //Validating that after searching the app, only 1 app is visible in UI
+        analysis.validateAnalysisCount(1);
+    });
+
+    it("Remove analysis", function () {
+        //Creating a basic project with single application
+        let projectData = getRandomApplicationData(this.projectData["jee-example-app"]);
+        const project = new Projects(projectData);
+        project.create();
+
+        //Run analysis twice
+        const analysis = new Analysis(projectData["name"]);
+        analysis.runAnalysis();
+        analysis.runAnalysis();
+
+        analysis.deleteLatest();
+        //Validating that after deleting the analysis, only 1 analysis is visible in UI
+        analysis.validateAnalysisCount(1);
     });
 
     after("Teardown", function () {

@@ -27,7 +27,11 @@ import {
     tableBody,
     trTag,
 } from "../views/common.view";
-import { customRulesSearch, ruleShortPathColumn } from "../views/rulesConfiguration.view";
+import {
+    customRulesSearch,
+    numRulesColumn,
+    ruleShortPathColumn,
+} from "../views/rulesConfiguration.view";
 
 export class RulesConfiguration {
     constructor() {
@@ -47,9 +51,9 @@ export class RulesConfiguration {
     search(rule: string) {
         navigateTo(rulesConfiguration);
         clickByText(pageTab, customRules);
-        cy.wait(10*SEC);
+        cy.wait(10 * SEC);
         inputText(customRulesSearch, rule);
-        cy.wait(MINUTE/2);
+        cy.wait(MINUTE / 2);
         cy.get("table > tbody > tr").eq(0).as("firstRow");
         cy.get("@firstRow")
             .find(ruleShortPathColumn + " > span")
@@ -61,11 +65,21 @@ export class RulesConfiguration {
     }
 
     validateCount(count: number): void {
-        cy.wait(MINUTE/2);
+        cy.wait(MINUTE / 2);
         cy.get(tableBody)
             .find(trTag)
             .then((row) => {
                 expect(row.length).to.equal(count);
+            });
+    }
+
+    validateRules(count) {
+        cy.get("table > tbody > tr").eq(0).as("firstRow");
+        cy.get("@firstRow")
+            .find(numRulesColumn)
+            .first()
+            .then(($col) => {
+                expect($col.text()).to.eq(count.toString());
             });
     }
 

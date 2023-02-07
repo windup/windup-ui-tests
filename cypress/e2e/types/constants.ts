@@ -74,7 +74,8 @@ export const completed = "Completed";
 export const running = "Running";
 export const pending = "Pending";
 
-//Rules Configuration constants
+//Rules & Labels Configuration constants
 export const customRules = "Custom rules";
 export const systemRules = "System rules";
 export const customLabels = "Custom labels";
+export const systemLabels = "System labels";
