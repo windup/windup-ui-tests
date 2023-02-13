@@ -1,10 +1,16 @@
 /// <reference types="Cypress" />
 /// <reference types='cypress-tags' />
 
-import { getRandomApplicationData, login, trimAppNames } from "../../utils/utils";
+import {
+    getRandomApplicationData,
+    isInstalledOnOCP,
+    login,
+    trimAppNames,
+} from "../../utils/utils";
 import { Analysis } from "../models/analysis";
 import { Projects } from "../models/projects";
 import { completed } from "../types/constants";
+import { skipOn } from "@cypress/skip-test";
 
 describe(["tier1"], "Analysis", function () {
     beforeEach("Login", function () {
@@ -62,6 +68,7 @@ describe(["tier1"], "Analysis", function () {
     });
 
     it("Analysis for Complete Duke with SourceMode", function () {
+        skipOn(isInstalledOnOCP());
         let projectData = getRandomApplicationData(this.projectData["complete-duke_SM"]);
         const project = new Projects(projectData);
         project.create();

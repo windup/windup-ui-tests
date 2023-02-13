@@ -92,7 +92,6 @@ export class Analysis {
             });
     }
 
-    
     search(searchTerm: string): void {
         // Function to Search an analysis by id
         cy.wait(SEC);
@@ -121,7 +120,6 @@ export class Analysis {
             expect(texts).to.deep.eq(texts.sort());
         });
     }
-
 
     deleteLatest(cancel = false): void {
         cy.wait(SEC);
