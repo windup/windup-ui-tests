@@ -12,7 +12,11 @@ import { projectData } from "../e2e/types/types";
 import { chooseProject, pageTab, primaryButton } from "../e2e/views/common.view";
 import * as data from "../utils/data_utils";
 import { navMenu } from "../e2e/views/menu.view";
-import { isExplodedCheckBox, serverPathInput } from "../e2e/views/projects.view";
+import {
+    advancedOptionSwitch,
+    isExplodedCheckBox,
+    serverPathInput,
+} from "../e2e/views/projects.view";
 
 let userName = Cypress.env("user");
 let userPassword = Cypress.env("pass");
@@ -36,7 +40,7 @@ export function clickByText(fieldId: string, buttonText: string, isForced = true
     cy.contains(fieldId, buttonText, { timeout: 120 * SEC }).click({
         force: isForced,
     });
-    cy.wait(20*SEC);
+    cy.wait(20 * SEC);
 }
 
 export function shouldBeEnabled(fieldId: string, buttonText: string): void {
@@ -166,5 +170,12 @@ export function addServerPath(path: string): void {
     clickByText(pageTab, serverPath);
     inputText(serverPathInput, jenkinsWorkspacePath + "/" + path);
     click(isExplodedCheckBox);
+    cy.wait(SEC);
+}
+
+//Function to enable the advanced options using toggle switch like exportcsv, sourceMode, etc.
+export function enableOption(option: string): void {
+    const optionSelector = advancedOptionSwitch + "[aria-label='" + option + "']";
+    click(optionSelector);
     cy.wait(SEC);
 }

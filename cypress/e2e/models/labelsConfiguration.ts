@@ -1,4 +1,5 @@
 import {
+    click,
     clickByText,
     importFile,
     inputText,
@@ -16,6 +17,7 @@ import {
     labelsConfiguration,
     MINUTE,
     SEC,
+    systemLabels,
 } from "../types/constants";
 import {
     dangerButton,
@@ -26,7 +28,13 @@ import {
     tableBody,
     trTag,
 } from "../views/common.view";
-import { customLabelsSearch, labelShortPathColumn } from "../views/labelsConfiguration.view";
+import {
+    customLabelsSearch,
+    labelProviderIDColumn,
+    labelShortPathColumn,
+    numLabelsColumn,
+    systemLabelsSearch,
+} from "../views/labelsConfiguration.view";
 
 export class LabelsConfiguration {
     constructor() {
@@ -58,11 +66,41 @@ export class LabelsConfiguration {
     }
 
     validateCount(count: number): void {
-        cy.wait(MINUTE/2);
+        cy.wait(MINUTE / 2);
         cy.get(tableBody)
             .find(trTag)
             .then((row) => {
                 expect(row.length).to.equal(count);
+            });
+    }
+
+    validateLabels(count) {
+        cy.get("table > tbody > tr").eq(0).as("firstRow");
+        cy.get("@firstRow")
+            .find(numLabelsColumn)
+            .first()
+            .then(($col) => {
+                expect($col.text()).to.eq(count.toString());
+            });
+    }
+
+    validateSysLabelCount(count) {
+        cy.wait(SEC);
+        navigateTo(labelsConfiguration);
+        clickByText(pageTab, systemLabels);
+        this.validateLabels(count);
+    }
+
+    searchSysLabels(label: string) {
+        navigateTo(labelsConfiguration);
+        clickByText(pageTab, systemLabels);
+        inputText(systemLabelsSearch, label);
+        cy.get("table > tbody > tr").eq(0).as("firstRow");
+        cy.get("@firstRow")
+            .find(labelProviderIDColumn)
+            .first()
+            .then(($a) => {
+                expect($a.text()).to.eq(label);
             });
     }
 
