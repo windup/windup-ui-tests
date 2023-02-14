@@ -18,6 +18,7 @@ module.exports = defineConfig({
     viewportWidth: 1920,
     viewportHeight: 1080,
     reporter: "cypress-multi-reporters",
+    video: false,
     reporterOptions: {
         reporterEnabled: "cypress-mochawesome-reporter, mocha-junit-reporter",
         cypressMochawesomeReporterReporterOptions: {

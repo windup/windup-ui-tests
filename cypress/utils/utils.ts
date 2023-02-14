@@ -179,3 +179,9 @@ export function enableOption(option: string): void {
     click(optionSelector);
     cy.wait(SEC);
 }
+
+export function isInstalledOnOCP(): boolean {
+    if (windupUiUrl.includes("localhost")) return false;
+
+    return true;
+}
