@@ -1,7 +1,9 @@
 import { getRandomApplicationData, login } from "../../utils/utils";
 import { Analysis } from "../models/analysis";
+import { AnalysisConfiguration } from "../models/analysis_configuration";
 import { Projects } from "../models/projects";
 import { RulesConfiguration } from "../models/rulesConfiguration";
+import { analysisConfiguration, completed } from "../types/constants";
 
 describe(["tier2"], "Rules Configuration", () => {
     beforeEach("Login", function () {
@@ -55,6 +57,23 @@ describe(["tier2"], "Rules Configuration", () => {
         //Run analysis
         const analysis = new Analysis(projectData["name"]);
         analysis.runAnalysis();
+        analysis.openAnalysisDetails();
+        analysis.validateAnalysisRules("custom.Test1rules.rhamt.xml");
+    });
+
+    it(["bug"], "Bug WINDUP-3322: Add custom rule and Use 'Run analysis' button", function () {
+        //Creating a basic project with single application
+        let projectData = getRandomApplicationData(this.projectData["jee-example-app"]);
+        const project = new Projects(projectData);
+        project.create();
+
+        const analysisConf = new AnalysisConfiguration(projectData["name"]);
+        let rulesDir = Cypress.env("jenkinsWorkspacePath") + "/cypress/fixtures/xml/";
+        analysisConf.addNewRule(rulesDir + "custom.Test1rules.rhamt.xml");
+        analysisConf.runAnalysis(); // New "Run analysis" button introduced
+
+        const analysis = new Analysis(projectData["name"]);
+        analysis.verifyLatestAnalysisStatus(completed);
         analysis.openAnalysisDetails();
         analysis.validateAnalysisRules("custom.Test1rules.rhamt.xml");
     });

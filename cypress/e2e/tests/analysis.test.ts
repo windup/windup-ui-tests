@@ -1,12 +1,7 @@
 /// <reference types="Cypress" />
 /// <reference types='cypress-tags' />
 
-import {
-    getRandomApplicationData,
-    isInstalledOnOCP,
-    login,
-    trimAppNames,
-} from "../../utils/utils";
+import { getRandomApplicationData, isInstalledOnOCP, login, trimAppNames } from "../../utils/utils";
 import { Analysis } from "../models/analysis";
 import { Projects } from "../models/projects";
 import { completed } from "../types/constants";
