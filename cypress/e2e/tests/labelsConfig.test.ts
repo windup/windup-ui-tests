@@ -3,6 +3,8 @@ import { Analysis } from "../models/analysis";
 import { LabelsConfiguration } from "../models/labelsConfiguration";
 import { Projects } from "../models/projects";
 
+let labelsDir = "cypress/fixtures/xml/";
+
 describe(["tier2"], "Labels Configuration", () => {
     beforeEach("Login", function () {
         cy.fixture("json/data").then(function (projectData) {
@@ -14,7 +16,6 @@ describe(["tier2"], "Labels Configuration", () => {
 
     it("Create/ Remove Custom Global Label", function () {
         const globalLabels = new LabelsConfiguration();
-        let labelsDir = Cypress.env("jenkinsWorkspacePath") + "/cypress/fixtures/xml/";
         globalLabels.add(labelsDir + "customWebLogic.windup.label.xml");
         globalLabels.validateCount(1);
         globalLabels.delete("customWebLogic.windup.label.xml");
@@ -22,7 +23,6 @@ describe(["tier2"], "Labels Configuration", () => {
 
     it("Search Custom Global Label", function () {
         const globalLabels = new LabelsConfiguration();
-        let labelsDir = Cypress.env("jenkinsWorkspacePath") + "/cypress/fixtures/xml/";
         globalLabels.add(labelsDir + "customWebLogic.windup.label.xml");
         globalLabels.validateCount(1);
         globalLabels.search("customWebLogic.windup.label.xml");
@@ -32,7 +32,6 @@ describe(["tier2"], "Labels Configuration", () => {
 
     it("Invalid label file", function () {
         const globalLabels = new LabelsConfiguration();
-        let labelsDir = Cypress.env("jenkinsWorkspacePath") + "/cypress/fixtures/xml/";
         globalLabels.add(labelsDir + "custom.Test1rules.rhamt.xml");
         globalLabels.validateLabels(0);
         globalLabels.delete("custom.Test1rules.rhamt.xml");
@@ -50,7 +49,6 @@ describe(["tier2"], "Labels Configuration", () => {
 
     it("Test analysis with global custom label", function () {
         const globalLabels = new LabelsConfiguration();
-        let labelsDir = Cypress.env("jenkinsWorkspacePath") + "/cypress/fixtures/xml/";
         globalLabels.add(labelsDir + "customWebLogic.windup.label.xml");
 
         //Creating a basic project with single application
@@ -63,5 +61,10 @@ describe(["tier2"], "Labels Configuration", () => {
         analysis.runAnalysis();
         analysis.openAnalysisDetails();
         analysis.validateAnalysisLabels("customWebLogic.windup.label.xml");
+    });
+
+    after("Teardown", function () {
+        login();
+        Projects.deleteAllProjects();
     });
 });
