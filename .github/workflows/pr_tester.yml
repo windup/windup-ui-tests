@@ -1,0 +1,22 @@
+name: Pull request test
+on: [push]
+
+jobs:
+  k8s-tests:
+    name: Collect test cases
+    runs-on: ubuntu-latest
+    outputs:
+      tests: ${{ steps.event.outputs.tests }}
+    steps:
+      - name: Checkout to pull request branch
+        uses: actions/checkout@v2
+      - id: file_changes
+        uses: jitterbit/get-changed-files@v1
+        continue-on-error: true
+        with:
+          format: 'json'
+        # Create event to generate ouput of comma separated test files only
+      - id: event
+        run: |
+          test_files=`python3 -c 'print(",".join([file for file in ${{ steps.file_changes.outputs.all }} if ".test.ts" in file]))'`
+          echo "::set-output name=tests::$test_files"
