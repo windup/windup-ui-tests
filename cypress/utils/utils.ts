@@ -185,3 +185,9 @@ export function isInstalledOnOCP(): boolean {
 
     return true;
 }
+
+export function isMTROnOCP(): boolean {
+    if (windupUiUrl.includes("mtr")) return true;
+
+    return false;
+}
