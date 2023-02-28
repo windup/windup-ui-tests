@@ -106,7 +106,7 @@ export class Projects {
     }
 
     //Function to click on "Create wizard"
-    protected openCreateWizard(): void {
+    openCreateWizard(): void {
         cy.contains(primaryButton, createProject, { timeout: 20000 }).should("be.enabled").click();
     }
 
