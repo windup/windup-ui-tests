@@ -1,7 +1,7 @@
 /// <reference types="Cypress" />
 /// <reference types='cypress-tags' />
 
-import { skipOn } from "@cypress/skip-test";
+import { onlyOn, skipOn } from "@cypress/skip-test";
 import {
     getRandomApplicationData,
     isInstalledOnOCP,
@@ -13,7 +13,7 @@ import {
 import { Projects } from "../models/projects";
 import { completed, projects, SEC } from "../types/constants";
 
-describe(["tier2"], "Features", function () {
+describe(["special"], "Features", function () {
     beforeEach("Login", function () {
         cy.fixture("json/data").then(function (projectData) {
             this.projectData = projectData;
@@ -23,7 +23,7 @@ describe(["tier2"], "Features", function () {
     });
 
     it("MTA-239: Validate azure-aks target not present in MTR", function () {
-        skipOn(isMTROnOCP());
+        onlyOn(isMTROnOCP());
         let projectData = getRandomApplicationData(this.projectData["JakartaEE9"]);
         const project = new Projects(projectData);
         navigateTo(projects);
@@ -37,6 +37,7 @@ describe(["tier2"], "Features", function () {
     });
 
     after("Teardown", function () {
+        if (!isMTROnOCP()) return;
         login();
         Projects.deleteAllProjects();
     });
