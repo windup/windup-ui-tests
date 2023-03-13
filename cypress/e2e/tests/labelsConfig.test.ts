@@ -61,6 +61,7 @@ describe(["tier2"], "Labels Configuration", () => {
         analysis.runAnalysis();
         analysis.openAnalysisDetails();
         analysis.validateAnalysisLabels("customWebLogic.windup.label.xml");
+        globalLabels.delete("customWebLogic.windup.label.xml");
     });
 
     after("Teardown", function () {
