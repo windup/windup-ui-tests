@@ -62,6 +62,30 @@ describe(["tier1"], "Analysis", function () {
         analysis.validateIncidents(trimAppNames(projectData["apps"]), projectData["incidents"]);
     });
 
+    it("Analysis for target Eap8", function () {
+        let projectData = getRandomApplicationData(this.projectData["Eap8"]);
+        const project = new Projects(projectData);
+        project.create();
+        const analysis = new Analysis(projectData["name"]);
+        analysis.runAnalysis();
+        analysis.verifyLatestAnalysisStatus(completed);
+        analysis.openReport();
+        analysis.validateStoryPoints(trimAppNames(projectData["apps"]), projectData["storyPoints"]);
+        analysis.validateIncidents(trimAppNames(projectData["apps"]), projectData["incidents"]);
+    });
+
+    it("Analysis for target OpenJdk17", function () {
+        let projectData = getRandomApplicationData(this.projectData["Openjdk17"]);
+        const project = new Projects(projectData);
+        project.create();
+        const analysis = new Analysis(projectData["name"]);
+        analysis.runAnalysis();
+        analysis.verifyLatestAnalysisStatus(completed);
+        analysis.openReport();
+        analysis.validateStoryPoints(trimAppNames(projectData["apps"]), projectData["storyPoints"]);
+        analysis.validateIncidents(trimAppNames(projectData["apps"]), projectData["incidents"]);
+    });
+
     it("Analysis for Complete Duke with SourceMode", function () {
         skipOn(isInstalledOnOCP());
         let projectData = getRandomApplicationData(this.projectData["complete-duke_SM"]);

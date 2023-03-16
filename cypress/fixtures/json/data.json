@@ -25,6 +25,70 @@
         "storyPoints": [78, 10, 44]
     },
 
+    "Eap8": {
+        "name": "Eap8",
+        "apps": ["AdministracionEfectivo.ear", "bonita-xcmis-war-5.5.war", "bw-note-ear-4.0.0.ear"],
+        "targets": ["eap8"],
+        "storyPoints": [1409, 32, 25],
+        "incidents": [
+            {
+                "mandatory": 1397,
+                "optional": 2,
+                "potential": 4,
+                "informational": 70,
+                "total": 1473
+            },
+            {
+                "mandatory": 24,
+                "optional": 2,
+                "potential": 4,
+                "informational": 52,
+                "total": 82
+            },
+            {
+                "mandatory": 9,
+                "optional": 0,
+                "potential": 1,
+                "informational": 16,
+                "total": 26
+            }
+        ]
+    },
+
+    "Openjdk17": {
+        "name": "Openjdk17",
+        "apps": [
+            "camunda-bpm-spring-boot-starter-example-war-2.0.0.war",
+            "kafka-clients-sb-sample.jar",
+            "spring-petclinic-2.4.0.BUILD-SNAPSHOT.jar"
+        ],
+        "targets": ["openjdk17"],
+        "storyPoints": [118, 24, 131],
+        "incidents": [
+            {
+                "mandatory": 9,
+                "optional": 9,
+                "potential": 82,
+                "informational": 104,
+                "total": 204
+            },
+            {
+                "mandatory": 1,
+                "optional": 0,
+                "potential": 19,
+                "informational": 55,
+                "total": 75
+            },
+            {
+                "mandatory": 1,
+                "optional": 0,
+                "potential": 126,
+                "informational": 58,
+                "total": 185
+            }
+        ]
+    },
+
     "3_SB_Apps": {
         "name": "3_SB_Apps",
         "apps": [
