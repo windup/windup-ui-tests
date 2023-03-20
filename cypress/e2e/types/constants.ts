@@ -79,3 +79,7 @@ export const customRules = "Custom rules";
 export const systemRules = "System rules";
 export const customLabels = "Custom labels";
 export const systemLabels = "System labels";
+
+//Report constants
+export const allApps = "All Applications";
+export const technologies = "Technologies";

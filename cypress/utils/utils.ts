@@ -191,3 +191,9 @@ export function isMTROnOCP(): boolean {
 
     return false;
 }
+
+export function clickReportTab(tabName: string) {
+    cy.wait(SEC);
+    clickByText("a", tabName);
+    cy.wait(SEC);
+}
