@@ -22,7 +22,31 @@
             "spring-petclinic-2.4.0.BUILD-SNAPSHOT.jar"
         ],
         "targets": ["Jakarta EE 9"],
-        "storyPoints": [78, 10, 44]
+        "storyPoints": [78, 10, 44],
+        "tags": [
+            [
+                ["Transactions", "JTA"],
+                ["Database", "JDBC XA datasources"],
+                ["Persistence", "Persistence units"],
+                ["Persistence", "JPA XML"],
+                ["Persistence", "JPA entities"],
+                ["HTTP", "Servlet"],
+                ["REST", "JAX-RS"],
+                ["Web", "Web XML File"],
+                ["Other", "Common Annotations"]
+            ],
+            [
+                ["HTTP", "Servlet"],
+                ["Processing", "Java Threads"],
+                ["Persistence", "JPA entities"]
+            ],
+            [
+                ["Binding", "Java EE JAXB"],
+                ["Validation", "Bean Validation"],
+                ["Persistence", "JPA entities"],
+                ["Processing", "Java Threads"]
+            ]
+        ]
     },
 
     "Eap8": {
