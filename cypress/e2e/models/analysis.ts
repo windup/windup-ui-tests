@@ -1,6 +1,7 @@
 import {
     click,
     clickByText,
+    clickReportTab,
     inputText,
     navigateTo,
     performRowActionByIcon,
@@ -8,6 +9,7 @@ import {
     shouldBeEnabled,
 } from "../../utils/utils";
 import {
+    allApps,
     analysisResults,
     cancelButton,
     customLabels,
@@ -18,6 +20,7 @@ import {
     runAnalysisButton,
     running,
     SEC,
+    technologies,
 } from "../types/constants";
 import {
     actionsColumn,
@@ -185,6 +188,21 @@ export class Analysis {
         for (var index = 0; index < appNames.length; index++) {
             cy.get(fileName).should("contain", appNames[index]);
             cy.get(reportStoryPoints).should("contain", points[index]);
+        }
+    }
+
+    validateTechTags(appNames: string[], tags): void {
+        for (var index = 0; index < appNames.length; index++) {
+            clickByText("div[class='fileName'] > a", appNames[index]);
+            clickReportTab(technologies);
+            for (var tagIndex = 0; tagIndex < tags[index].length; tagIndex++) {
+                cy.get("div[class='content'] > h4").should("contain", tags[index][tagIndex][0]);
+                cy.get("div[class='content'] > ul > li").should(
+                    "contain",
+                    tags[index][tagIndex][1]
+                );
+            }
+            clickReportTab(allApps);
         }
     }
 
