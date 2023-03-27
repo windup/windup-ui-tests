@@ -86,6 +86,17 @@ describe(["tier1"], "Analysis", function () {
         analysis.validateIncidents(trimAppNames(projectData["apps"]), projectData["incidents"]);
     });
 
+    it("Validte Technology Tags for target Jakarta", function () {
+        let projectData = getRandomApplicationData(this.projectData["JakartaEE9"]);
+        const project = new Projects(projectData);
+        project.create();
+        const analysis = new Analysis(projectData["name"]);
+        analysis.runAnalysis();
+        analysis.verifyLatestAnalysisStatus(completed);
+        analysis.openReport();
+        analysis.validateTechTags(trimAppNames(projectData["apps"]), projectData["tags"]);
+    });
+
     it("Analysis for Complete Duke with SourceMode", function () {
         skipOn(isInstalledOnOCP());
         let projectData = getRandomApplicationData(this.projectData["complete-duke_SM"]);
