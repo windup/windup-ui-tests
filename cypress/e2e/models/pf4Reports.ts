@@ -3,12 +3,14 @@ import {
     clickByText,
     clickPf4ReportTab,
     clickReportTab,
+    inputText,
     navigateTo,
 } from "../../utils/utils";
-import { SEC, allApps, technologies } from "../types/constants";
+import { SEC, allApps, dependencies, technologies } from "../types/constants";
 import { allIncidentsTables, fileName, reportStoryPoints } from "../views/analysis.view";
 import {
     applications,
+    dependencySearchInput,
     incidentCounts,
     incidentLabels,
     incidentsLink,
@@ -97,5 +99,16 @@ export class PF4Reports {
                 .eq(index + 1)
                 .click();
         }
+    }
+
+    validateDependency(appName: string, dependencyFile: string) : void {
+        clickByText(applications + " > a", appName);
+        clickPf4ReportTab(dependencies);
+        cy.wait(10*SEC);
+        inputText(dependencySearchInput, dependencyFile);
+        click("tr > td > button");
+        cy.get("div.pf-c-description-list__text > a").then(($maven) => {
+            $maven.attr("target", "_self");
+        }).click({force:true});
     }
 }
