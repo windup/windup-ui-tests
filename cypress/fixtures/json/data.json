@@ -3,6 +3,9 @@
         "name": "BasicApp_eap7",
         "apps": ["acmeair-webapp-1.0-SNAPSHOT.war"],
         "targets": ["eap7"],
+        "advancedOptions": {
+            "options": ["Legacy reports"]
+        },
         "customRules": ["custom.Test1rules.rhamt.xml"],
         "customLabels": ["customWebLogic.windup.label.xml"]
     },
@@ -11,6 +14,9 @@
         "name": "Containerization",
         "apps": ["customers-tomcat-0.0.1-SNAPSHOT.war"],
         "targets": ["Containerization"],
+        "advancedOptions": {
+            "options": ["Legacy reports"]
+        },
         "storyPoints": [2]
     },
 
@@ -22,6 +28,9 @@
             "spring-petclinic-2.4.0.BUILD-SNAPSHOT.jar"
         ],
         "targets": ["Jakarta EE 9"],
+        "advancedOptions": {
+            "options": ["Legacy reports"]
+        },
         "storyPoints": [78, 10, 44],
         "tags": [
             [
@@ -53,6 +62,9 @@
         "name": "Eap8",
         "apps": ["AdministracionEfectivo.ear", "bonita-xcmis-war-5.5.war", "bw-note-ear-4.0.0.ear"],
         "targets": ["eap8"],
+        "advancedOptions": {
+            "options": ["Legacy reports"]
+        },
         "storyPoints": [1409, 32, 25],
         "incidents": [
             {
@@ -87,6 +99,9 @@
             "spring-petclinic-2.4.0.BUILD-SNAPSHOT.jar"
         ],
         "targets": ["openjdk17"],
+        "advancedOptions": {
+            "options": ["Legacy reports"]
+        },
         "storyPoints": [118, 24, 131],
         "incidents": [
             {
@@ -121,6 +136,9 @@
             "spring-petclinic-2.4.0.BUILD-SNAPSHOT.jar"
         ],
         "targets": ["Quarkus"],
+        "advancedOptions": {
+            "options": ["Legacy reports"]
+        },
         "storyPoints": [132, 178, 140],
         "incidents": [
             {
@@ -155,6 +173,9 @@
             "spring-petclinic-2.4.0.BUILD-SNAPSHOT.jar"
         ],
         "targets": ["Quarkus", "openjdk11"],
+        "advancedOptions": {
+            "options": ["Legacy reports"]
+        },
         "storyPoints": [215, 197, 266],
         "incidents": [
             {
@@ -186,7 +207,7 @@
         "apps": ["complete-duke"],
         "targets": ["Jakarta EE 9"],
         "advancedOptions": {
-            "options": ["Source mode"]
+            "options": ["Source mode", "Legacy reports"]
         },
         "storyPoints": [29],
         "incidents": [
@@ -205,6 +226,7 @@
         "apps": ["jee-example-app-1.0.0.ear"],
         "targets": ["eap7"],
         "advancedOptions": {
+            "options": ["Legacy reports"],
             "sources": ["weblogic"]
         },
         "storyPoints": [89],
