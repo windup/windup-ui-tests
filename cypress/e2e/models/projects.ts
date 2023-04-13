@@ -120,6 +120,7 @@ export class Projects {
         shouldBeEnabled(primaryButton, next);
         cy.wait(10 * SEC);
         clickByText(primaryButton, next);
+        clickByText(primaryButton, next);
     }
 
     //Function to attach the binary files or providing the project server path to analyse
