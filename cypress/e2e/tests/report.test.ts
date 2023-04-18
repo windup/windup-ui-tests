@@ -26,6 +26,17 @@ describe(["tier2"], "Report Cases", function () {
         analysis.matchStoryPointsOrder();
     });
 
+    it("Validate Technology Tags for target Jakarta", function () {
+        let projectData = getRandomApplicationData(this.projectData["JakartaEE9"]);
+        const project = new Projects(projectData);
+        project.create();
+        const analysis = new Analysis(projectData["name"]);
+        analysis.runAnalysis();
+        analysis.verifyLatestAnalysisStatus(completed);
+        analysis.openReport();
+        analysis.validateTechTags(trimAppNames(projectData["apps"]), projectData["tags"]);
+    });
+
     after("Teardown", function () {
         login();
         Projects.deleteAllProjects();
