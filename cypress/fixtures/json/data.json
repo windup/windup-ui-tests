@@ -37,14 +37,12 @@
             ],
             [
                 ["HTTP", "Servlet"],
-                ["Processing", "Java Threads"],
                 ["Persistence", "JPA entities"]
             ],
             [
                 ["Binding", "Java EE JAXB"],
                 ["Validation", "Bean Validation"],
-                ["Persistence", "JPA entities"],
-                ["Processing", "Java Threads"]
+                ["Persistence", "JPA entities"]
             ]
         ]
     },
