@@ -22,7 +22,7 @@
             "spring-petclinic-2.4.0.BUILD-SNAPSHOT.jar"
         ],
         "targets": ["Jakarta EE 9"],
-        "storyPoints": [78, 10, 44],
+        "storyPoints": [78, 10, 42],
         "tags": [
             [
                 ["Transactions", "JTA"],
@@ -53,28 +53,28 @@
         "name": "Eap8",
         "apps": ["AdministracionEfectivo.ear", "bonita-xcmis-war-5.5.war", "bw-note-ear-4.0.0.ear"],
         "targets": ["eap8"],
-        "storyPoints": [1409, 32, 25],
+        "storyPoints": [4560, 1924, 16],
         "incidents": [
             {
-                "mandatory": 1397,
+                "mandatory": 4558,
                 "optional": 2,
-                "potential": 4,
-                "informational": 70,
-                "total": 1473
+                "potential": 113,
+                "informational": 183,
+                "total": 4856
             },
             {
-                "mandatory": 24,
-                "optional": 2,
-                "potential": 4,
-                "informational": 52,
-                "total": 82
+                "mandatory": 1501,
+                "optional": 47,
+                "potential": 180,
+                "informational": 118,
+                "total": 1846
             },
             {
-                "mandatory": 9,
+                "mandatory": 19,
                 "optional": 0,
                 "potential": 1,
-                "informational": 16,
-                "total": 26
+                "informational": 23,
+                "total": 43
             }
         ]
     },
@@ -87,7 +87,7 @@
             "spring-petclinic-2.4.0.BUILD-SNAPSHOT.jar"
         ],
         "targets": ["openjdk17"],
-        "storyPoints": [118, 24, 131],
+        "storyPoints": [118, 24, 24],
         "incidents": [
             {
                 "mandatory": 9,
@@ -106,9 +106,9 @@
             {
                 "mandatory": 1,
                 "optional": 0,
-                "potential": 126,
+                "potential": 19,
                 "informational": 58,
-                "total": 185
+                "total": 78
             }
         ]
     },
@@ -155,7 +155,7 @@
             "spring-petclinic-2.4.0.BUILD-SNAPSHOT.jar"
         ],
         "targets": ["Quarkus", "openjdk11"],
-        "storyPoints": [215, 197, 266],
+        "storyPoints": [215, 197, 159],
         "incidents": [
             {
                 "mandatory": 7,
@@ -174,9 +174,9 @@
             {
                 "mandatory": 26,
                 "optional": 0,
-                "potential": 147,
+                "potential": 40,
                 "informational": 58,
-                "total": 231
+                "total": 124
             }
         ]
     },
