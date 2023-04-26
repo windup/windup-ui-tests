@@ -16,7 +16,16 @@ describe(["tier1"], "Analysis on different targets", function () {
         login();
     });
 
-    it(["interop"], "Analysis for target Jakarta EE 9", function () {
+    it(["interop"], "Analysis for target eap7", function () {
+        let projectData = getRandomApplicationData(this.projectData["BasicApp_eap7"]);
+        const project = new Projects(projectData);
+        project.create();
+        const analysis = new Analysis(projectData["name"]);
+        analysis.runAnalysis();
+        analysis.verifyLatestAnalysisStatus(completed);
+    });
+
+    it("Analysis for target Jakarta EE 9", function () {
         let projectData = getRandomApplicationData(this.projectData["JakartaEE9"]);
         const project = new Projects(projectData);
         project.create();
