@@ -12,6 +12,8 @@ import {
 } from "../../utils/utils";
 import { Projects } from "../models/projects";
 import { completed, projects, SEC } from "../types/constants";
+import { AnalysisConfiguration } from "../models/analysis_configuration";
+import { Analysis } from "../models/analysis";
 
 describe(["special"], "Features", function () {
     beforeEach("Login", function () {
@@ -20,6 +22,24 @@ describe(["special"], "Features", function () {
         });
 
         login();
+    });
+
+    it("MTR-301: Validate skip source code reports option", function () {
+        let projectData = getRandomApplicationData(this.projectData["JakartaEE9"]);
+        const project = new Projects(projectData);
+        project.create();
+
+        const extraOption = {
+            options: ["Skip source code reports"],
+        };
+
+        const analysisConf = new AnalysisConfiguration(projectData["name"]);
+        analysisConf.modifyAdvancedOptions(extraOption);
+
+        const analysis = new Analysis(projectData["name"]);
+        analysis.runAnalysis();
+        analysis.verifyLatestAnalysisStatus(completed);
+        analysis.openReport();
     });
 
     it("MTA-239: Validate azure-aks target not present in MTR", function () {
