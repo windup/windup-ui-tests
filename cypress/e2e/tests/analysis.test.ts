@@ -3,6 +3,7 @@
 
 import { getRandomApplicationData, isInstalledOnOCP, login, trimAppNames } from "../../utils/utils";
 import { Analysis } from "../models/analysis";
+import { LegacyReport } from "../models/legacyReports";
 import { Projects } from "../models/projects";
 import { completed } from "../types/constants";
 import { skipOn } from "@cypress/skip-test";
@@ -24,8 +25,12 @@ describe(["tier1"], "Standard Analysis Tests", function () {
         analysis.runAnalysis();
         analysis.verifyLatestAnalysisStatus(completed);
         analysis.openReport();
-        analysis.validateStoryPoints(trimAppNames(projectData["apps"]), projectData["storyPoints"]);
-        analysis.validateIncidents(trimAppNames(projectData["apps"]), projectData["incidents"]);
+        const legacyReport = new LegacyReport();
+        legacyReport.validateStoryPoints(
+            trimAppNames(projectData["apps"]),
+            projectData["storyPoints"]
+        );
+        legacyReport.validateIncidents(trimAppNames(projectData["apps"]), projectData["incidents"]);
     });
 
     it("Sort/Search Analysis", function () {
