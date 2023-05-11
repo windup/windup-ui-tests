@@ -1,5 +1,6 @@
 import { getRandomApplicationData, login, trimAppNames } from "../../utils/utils";
 import { Analysis } from "../models/analysis";
+import { LegacyReport } from "../models/legacyReports";
 import { Projects } from "../models/projects";
 import { completed } from "../types/constants";
 
@@ -20,10 +21,11 @@ describe(["tier2"], "Report Cases", function () {
         analysis.runAnalysis();
         analysis.verifyLatestAnalysisStatus(completed);
         analysis.openReport();
-        analysis.sortReportBy("Name");
-        analysis.matchAppsOrder();
-        analysis.sortReportBy("Story Points");
-        analysis.matchStoryPointsOrder();
+        const legacyReport = new LegacyReport();
+        legacyReport.sortReportBy("Name");
+        legacyReport.matchAppsOrder();
+        legacyReport.sortReportBy("Story Points");
+        legacyReport.matchStoryPointsOrder();
     });
 
     it("Validate Technology Tags for target Jakarta", function () {
@@ -34,7 +36,8 @@ describe(["tier2"], "Report Cases", function () {
         analysis.runAnalysis();
         analysis.verifyLatestAnalysisStatus(completed);
         analysis.openReport();
-        analysis.validateTechTags(trimAppNames(projectData["apps"]), projectData["tags"]);
+        const legacyReport = new LegacyReport();
+        legacyReport.validateTechTags(trimAppNames(projectData["apps"]), projectData["tags"]);
     });
 
     after("Teardown", function () {
