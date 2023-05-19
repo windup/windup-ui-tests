@@ -63,28 +63,28 @@
         "advancedOptions": {
             "options": ["Legacy reports"]
         },
-        "storyPoints": [4560, 1924, 16],
+        "storyPoints": [1409, 1605, 25],
         "incidents": [
             {
-                "mandatory": 4558,
+                "mandatory": 1397,
                 "optional": 2,
-                "potential": 113,
-                "informational": 183,
-                "total": 4856
+                "potential": 4,
+                "informational": 70,
+                "total": 1473
             },
             {
-                "mandatory": 1501,
+                "mandatory": 1183,
                 "optional": 47,
-                "potential": 180,
-                "informational": 118,
-                "total": 1846
+                "potential": 178,
+                "informational": 136,
+                "total": 1544
             },
             {
-                "mandatory": 19,
+                "mandatory": 9,
                 "optional": 0,
                 "potential": 1,
-                "informational": 23,
-                "total": 43
+                "informational": 16,
+                "total": 26
             }
         ]
     },
@@ -106,15 +106,15 @@
                 "mandatory": 9,
                 "optional": 9,
                 "potential": 82,
-                "informational": 104,
-                "total": 204
+                "informational": 110,
+                "total": 210
             },
             {
                 "mandatory": 1,
                 "optional": 0,
                 "potential": 19,
-                "informational": 55,
-                "total": 75
+                "informational": 54,
+                "total": 74
             },
             {
                 "mandatory": 1,
@@ -143,15 +143,15 @@
                 "mandatory": 5,
                 "optional": 9,
                 "potential": 26,
-                "informational": 104,
-                "total": 144
+                "informational": 110,
+                "total": 150
             },
             {
                 "mandatory": 14,
                 "optional": 0,
                 "potential": 31,
-                "informational": 55,
-                "total": 100
+                "informational": 54,
+                "total": 99
             },
             {
                 "mandatory": 26,
@@ -180,15 +180,15 @@
                 "mandatory": 7,
                 "optional": 9,
                 "potential": 108,
-                "informational": 104,
-                "total": 228
+                "informational": 110,
+                "total": 234
             },
             {
                 "mandatory": 14,
                 "optional": 0,
                 "potential": 50,
-                "informational": 55,
-                "total": 119
+                "informational": 54,
+                "total": 118
             },
             {
                 "mandatory": 26,
