@@ -225,8 +225,10 @@ export class Projects {
                 advancedOptions.sources.forEach((source) => {
                     inputText(inputSources, source);
                     clickByText("button", source);
+                    click(inputSources);
                 });
             }
+            cy.wait(10 * SEC);
             if (advancedOptions.options)
                 advancedOptions.options.forEach((option) => enableOption(option));
         }
