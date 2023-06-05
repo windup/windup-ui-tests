@@ -197,3 +197,9 @@ export function clickReportTab(tabName: string) {
     clickByText("a", tabName);
     cy.wait(SEC);
 }
+
+export function clickPf4ReportTab(tabName: string) {
+    cy.wait(SEC);
+    clickByText("span", tabName);
+    cy.wait(SEC);
+}
