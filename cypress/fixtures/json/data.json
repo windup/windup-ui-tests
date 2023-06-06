@@ -60,9 +60,6 @@
         "name": "Eap8",
         "apps": ["AdministracionEfectivo.ear", "bonita-xcmis-war-5.5.war", "bw-note-ear-4.0.0.ear"],
         "targets": ["eap8"],
-        "advancedOptions": {
-            "options": ["Legacy reports"]
-        },
         "storyPoints": [1409, 1605, 25],
         "incidents": [
             {
@@ -97,9 +94,6 @@
             "spring-petclinic-2.4.0.BUILD-SNAPSHOT.jar"
         ],
         "targets": ["openjdk17"],
-        "advancedOptions": {
-            "options": ["Legacy reports"]
-        },
         "storyPoints": [118, 24, 24],
         "incidents": [
             {
@@ -224,7 +218,6 @@
         "apps": ["jee-example-app-1.0.0.ear"],
         "targets": ["eap7"],
         "advancedOptions": {
-            "options": ["Legacy reports"],
             "sources": ["weblogic"]
         },
         "storyPoints": [89],
