@@ -4,6 +4,7 @@
 import { getRandomApplicationData, login, trimAppNames } from "../../utils/utils";
 import { Analysis } from "../models/analysis";
 import { LegacyReport } from "../models/legacyReports";
+import { PF4Reports } from "../models/pf4Reports";
 import { Projects } from "../models/projects";
 import { completed } from "../types/constants";
 
@@ -86,12 +87,12 @@ describe(["tier1"], "Analysis on different targets", function () {
         analysis.runAnalysis();
         analysis.verifyLatestAnalysisStatus(completed);
         analysis.openReport();
-        const legacyReport = new LegacyReport();
-        legacyReport.validateStoryPoints(
+        const pf4reports = new PF4Reports();
+        pf4reports.validateStoryPoints(
             trimAppNames(projectData["apps"]),
             projectData["storyPoints"]
         );
-        legacyReport.validateIncidents(trimAppNames(projectData["apps"]), projectData["incidents"]);
+        pf4reports.validateIncidents(trimAppNames(projectData["apps"]), projectData["incidents"]);
     });
 
     it("Analysis for target OpenJdk17", function () {
@@ -102,12 +103,12 @@ describe(["tier1"], "Analysis on different targets", function () {
         analysis.runAnalysis();
         analysis.verifyLatestAnalysisStatus(completed);
         analysis.openReport();
-        const legacyReport = new LegacyReport();
-        legacyReport.validateStoryPoints(
+        const pf4reports = new PF4Reports();
+        pf4reports.validateStoryPoints(
             trimAppNames(projectData["apps"]),
             projectData["storyPoints"]
         );
-        legacyReport.validateIncidents(trimAppNames(projectData["apps"]), projectData["incidents"]);
+        pf4reports.validateIncidents(trimAppNames(projectData["apps"]), projectData["incidents"]);
     });
 
     it("Analysis for JEE Example app", function () {
@@ -118,12 +119,12 @@ describe(["tier1"], "Analysis on different targets", function () {
         analysis.runAnalysis();
         analysis.verifyLatestAnalysisStatus(completed);
         analysis.openReport();
-        const legacyReport = new LegacyReport();
-        legacyReport.validateStoryPoints(
+        const pf4reports = new PF4Reports();
+        pf4reports.validateStoryPoints(
             trimAppNames(projectData["apps"]),
             projectData["storyPoints"]
         );
-        legacyReport.validateIncidents(trimAppNames(projectData["apps"]), projectData["incidents"]);
+        pf4reports.validateIncidents(trimAppNames(projectData["apps"]), projectData["incidents"]);
     });
 
     after("Teardown", function () {
