@@ -12,6 +12,8 @@ import {
 } from "../../utils/utils";
 import { Projects } from "../models/projects";
 import { completed, projects, SEC } from "../types/constants";
+import { Analysis } from "../models/analysis";
+import { PF4Reports } from "../models/pf4Reports";
 
 describe(["special"], "Features", function () {
     beforeEach("Login", function () {
@@ -20,6 +22,22 @@ describe(["special"], "Features", function () {
         });
 
         login();
+    });
+
+    it("Analysis for App+Dependencies", function () {
+        skipOn(isInstalledOnOCP());
+        let projectData = getRandomApplicationData(this.projectData["spring_app_with_deps"]);
+        const project = new Projects(projectData);
+        project.create();
+        const analysis = new Analysis(projectData["name"]);
+        analysis.runAnalysis();
+        analysis.verifyLatestAnalysisStatus(completed);
+        analysis.openReport();
+        const pf4Reports = new PF4Reports();
+        pf4Reports.validateStoryPoints(
+            trimAppNames(projectData["apps"]),
+            projectData["storyPoints"]
+        );
     });
 
     it("MTA-239: Validate azure-aks target not present in MTR", function () {

@@ -14,6 +14,7 @@ import {
     addLabel,
     addRule,
     advancedOptionsPage,
+    back,
     close,
     createProject,
     customLabels,
@@ -33,7 +34,7 @@ import {
     selectTransformationTarget,
 } from "../types/constants";
 import { advancedOptionsData, projectData } from "../types/types";
-import { dangerButton, kebabMenu, primaryButton } from "../views/common.view";
+import { dangerButton, kebabMenu, primaryButton, secondaryButton } from "../views/common.view";
 import {
     advancedOptionSwitch,
     deleteProjectInput,
@@ -133,6 +134,9 @@ export class Projects {
                 importFile(app);
             } else {
                 addServerPath(app);
+                clickByText(primaryButton, next);
+                cy.wait(10 * SEC);
+                clickByText(secondaryButton, back);
             }
         });
         cy.wait(MINUTE);
