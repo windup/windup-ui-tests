@@ -23,7 +23,6 @@ describe(["tier2"], "Rules Configuration", () => {
 
     it("Create/ Remove Custom Global Rule", function () {
         const globalRules = new RulesConfiguration();
-
         globalRules.add(rulesDir + "custom.Test1rules.rhamt.xml");
         globalRules.add(rulesDir + "empty_rule_file.xml");
         globalRules.validateCount(2);
@@ -65,6 +64,20 @@ describe(["tier2"], "Rules Configuration", () => {
         analysis.openAnalysisDetails();
         analysis.validateAnalysisRules("custom.Test1rules.rhamt.xml");
         globalRules.delete("custom.Test1rules.rhamt.xml");
+    });
+
+    it("Filter System Global Rule by Target", function () {
+        const globalRules = new RulesConfiguration();
+        var filter_target_techs = ["openjdk", "openjdk 11"];
+        globalRules.filterBy("Target", filter_target_techs);
+        globalRules.validateCount(8);
+    });
+
+    it("Filter System Global Rule by Source", function () {
+        const globalRules = new RulesConfiguration();
+        var filter_source_techs = ["agroal", "amazon"];
+        globalRules.filterBy("Source", filter_source_techs);
+        globalRules.validateCount(4);
     });
 
     it(["bug"], "Bug WINDUP-3322: Add custom rule and Use 'Run analysis' button", function () {
