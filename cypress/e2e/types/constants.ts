@@ -83,3 +83,4 @@ export const systemLabels = "System labels";
 //Report constants
 export const allApps = "All Applications";
 export const technologies = "Technologies";
+export const dependencies = "Dependencies";
