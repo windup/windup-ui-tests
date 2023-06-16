@@ -114,4 +114,17 @@ export class RulesConfiguration {
         click(showAllRules);
         cy.wait(SEC * 10);
     }
+    
+    filterBy(category: string, technologies: string[]) {
+        if (category == "Target") {
+            clickByText("span", "Source");
+            clickByText("button", category);
+        }
+
+        clickByText("span", "Filter by " + category);
+
+        for (var index = 0; index < technologies.length; index++) {
+            clickByText("span", technologies[index]);
+        }
+    }
 }
