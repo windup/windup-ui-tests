@@ -213,6 +213,13 @@
         ]
     },
 
+    "spring_app_with_deps": {
+        "name": "spring_app_with_deps",
+        "apps": ["spring_app_with_deps/deps", "spring_app_with_deps/spring-petclinic"],
+        "targets": ["Quarkus"],
+        "storyPoints": [70, 76]
+    },
+
     "jee-example-app": {
         "name": "jee-example-app",
         "apps": ["jee-example-app-1.0.0.ear"],
