@@ -1,4 +1,5 @@
 import {
+    click,
     clickByText,
     importFile,
     inputText,
@@ -31,6 +32,7 @@ import {
     customRulesSearch,
     numRulesColumn,
     ruleShortPathColumn,
+    showAllRules,
 } from "../views/rulesConfiguration.view";
 
 export class RulesConfiguration {
@@ -105,5 +107,11 @@ export class RulesConfiguration {
             this.delete($rule.text());
             cy.wait(20 * SEC);
         });
+    }
+
+    showAllRules() {
+        cy.wait(SEC * 10);
+        click(showAllRules);
+        cy.wait(SEC * 10);
     }
 }

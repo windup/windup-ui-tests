@@ -16,6 +16,11 @@ describe(["tier2"], "Rules Configuration", () => {
         login();
     });
 
+    it("Total System Global Rules", function () {
+        const globalRules = new RulesConfiguration();
+        globalRules.showAllRules();
+    });
+
     it("Create/ Remove Custom Global Rule", function () {
         const globalRules = new RulesConfiguration();
 
