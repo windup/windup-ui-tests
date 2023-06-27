@@ -98,4 +98,10 @@ export class PF4Reports {
                 .click();
         }
     }
+
+    openPage(page: string): void {
+        cy.wait(10 * SEC);
+        navigateTo(page);
+        cy.wait(10 * SEC);
+    }
 }
