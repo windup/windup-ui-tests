@@ -114,7 +114,7 @@ export class RulesConfiguration {
         click(showAllRules);
         cy.wait(SEC * 10);
     }
-    
+
     filterBy(category: string, technologies: string[]) {
         if (category == "Target") {
             clickByText("span", "Source");

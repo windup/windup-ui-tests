@@ -24,6 +24,7 @@ import {
     editButton,
     MINUTE,
     next,
+    projectDelete,
     projectDetailsPage,
     projects,
     reviewPage,
@@ -298,7 +299,7 @@ export class Projects {
         navigateTo(projects);
         performRowActionByIcon(project, kebabMenu);
         clickByText("button", deleteButton);
-        cy.contains("span", projectDetailsPage, { timeout: 120 * SEC });
+        cy.contains("span", projectDelete, { timeout: 120 * SEC });
         inputText(deleteProjectInput, project);
         shouldBeEnabled(dangerButton, deleteButton);
         clickByText(dangerButton, deleteButton);
