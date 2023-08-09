@@ -53,6 +53,7 @@ export const selectPackages = "Select packages";
 export const selectTransformationTarget = "Select transformation target";
 export const addApplicationsPage = "Add applications";
 export const projectDetailsPage = "Project details";
+export const projectDelete = "Project delete confirmation";
 
 //Applications Page Constants
 export const addApplication = "Add application";
