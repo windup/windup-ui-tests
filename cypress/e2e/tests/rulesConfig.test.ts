@@ -70,7 +70,7 @@ describe(["tier2"], "Rules Configuration", () => {
         const globalRules = new RulesConfiguration();
         var filter_target_techs = ["openjdk", "openjdk 11"];
         globalRules.filterBy("Target", filter_target_techs);
-        globalRules.validateCount(8);
+        globalRules.validateCount(10);
     });
 
     it("Filter System Global Rule by Source", function () {
