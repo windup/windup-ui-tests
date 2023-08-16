@@ -31,7 +31,7 @@
         "advancedOptions": {
             "options": ["Legacy reports"]
         },
-        "storyPoints": [78, 10, 42],
+        "storyPoints": [110, 76, 120],
         "tags": [
             [
                 ["Transactions", "JTA"],
@@ -60,28 +60,28 @@
         "name": "Eap8",
         "apps": ["AdministracionEfectivo.ear", "bonita-xcmis-war-5.5.war", "bw-note-ear-4.0.0.ear"],
         "targets": ["eap8"],
-        "storyPoints": [1409, 1605, 25],
+        "storyPoints": [1411, 1606, 25],
         "incidents": [
             {
                 "mandatory": 1397,
                 "optional": 2,
-                "potential": 4,
-                "informational": 70,
-                "total": 1473
+                "potential": 6,
+                "informational": 209,
+                "total": 1614
             },
             {
                 "mandatory": 1183,
                 "optional": 47,
-                "potential": 178,
-                "informational": 136,
-                "total": 1544
+                "potential": 179,
+                "informational": 137,
+                "total": 1546
             },
             {
                 "mandatory": 9,
                 "optional": 0,
                 "potential": 1,
-                "informational": 16,
-                "total": 26
+                "informational": 20,
+                "total": 30
             }
         ]
     },
@@ -107,15 +107,15 @@
                 "mandatory": 1,
                 "optional": 0,
                 "potential": 19,
-                "informational": 54,
-                "total": 74
+                "informational": 57,
+                "total": 77
             },
             {
                 "mandatory": 1,
                 "optional": 0,
                 "potential": 19,
-                "informational": 58,
-                "total": 78
+                "informational": 61,
+                "total": 81
             }
         ]
     },
@@ -131,28 +131,28 @@
         "advancedOptions": {
             "options": ["Legacy reports"]
         },
-        "storyPoints": [132, 178, 140],
+        "storyPoints": [212, 183, 145],
         "incidents": [
             {
-                "mandatory": 5,
+                "mandatory": 86,
                 "optional": 9,
                 "potential": 26,
                 "informational": 110,
-                "total": 150
+                "total": 231
             },
             {
-                "mandatory": 14,
+                "mandatory": 20,
                 "optional": 0,
                 "potential": 31,
-                "informational": 54,
-                "total": 99
+                "informational": 57,
+                "total": 108
             },
             {
-                "mandatory": 26,
+                "mandatory": 32,
                 "optional": 0,
                 "potential": 21,
-                "informational": 58,
-                "total": 105
+                "informational": 61,
+                "total": 114
             }
         ]
     },
@@ -168,28 +168,28 @@
         "advancedOptions": {
             "options": ["Legacy reports"]
         },
-        "storyPoints": [215, 197, 159],
+        "storyPoints": [295, 202, 164],
         "incidents": [
             {
-                "mandatory": 7,
+                "mandatory": 88,
                 "optional": 9,
                 "potential": 108,
                 "informational": 110,
-                "total": 234
+                "total": 315
             },
             {
-                "mandatory": 14,
+                "mandatory": 20,
                 "optional": 0,
                 "potential": 50,
-                "informational": 54,
-                "total": 118
+                "informational": 57,
+                "total": 127
             },
             {
-                "mandatory": 26,
+                "mandatory": 32,
                 "optional": 0,
                 "potential": 40,
-                "informational": 58,
-                "total": 124
+                "informational": 61,
+                "total": 133
             }
         ]
     },
