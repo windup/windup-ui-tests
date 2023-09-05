@@ -1,12 +1,9 @@
 import {
-    click,
     clickByText,
     clickPf4ReportTab,
-    clickReportTab,
     navigateTo,
 } from "../../utils/utils";
-import { SEC, allApps, technologies } from "../types/constants";
-import { allIncidentsTables, fileName, reportStoryPoints } from "../views/analysis.view";
+import { SEC, technologies } from "../types/constants";
 import {
     applications,
     incidentCounts,
@@ -15,6 +12,7 @@ import {
     reportTableFilterButtons,
     storyPoints,
 } from "../views/pf4reports.view";
+import {tableBody, trTag} from "../views/common.view";
 
 export class PF4Reports {
     validateStoryPoints(appNames: string[], points: number[]): void {
@@ -69,9 +67,10 @@ export class PF4Reports {
             let informational = incidents[index].informational;
             let total = incidents[index].total;
 
-            cy.get(incidentsLink)
-                .eq(index + 1)
-                .click();
+            cy.get(tableBody)
+                .find(trTag)
+                .get(incidentsLink)
+                .click({ multiple: true });
 
             if (mandatory) {
                 cy.get(incidentLabels).should("contain", "Migration mandatory");
@@ -93,9 +92,10 @@ export class PF4Reports {
                 cy.get(incidentCounts).should("contain", informational);
             }
 
-            cy.get(incidentsLink)
-                .eq(index + 1)
-                .click();
+            cy.get(tableBody)
+                .find(trTag)
+                .get(incidentsLink)
+                .click({ multiple: true });
         }
     }
 
