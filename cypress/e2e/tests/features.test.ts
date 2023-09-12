@@ -52,6 +52,8 @@ describe(["special"], "Features", function () {
         //Checking if the dropdown for multiple azure target exists with default value set as azure-appservice.
         //It should not exist in downstream
         cy.contains("span", "azure-appservice", { timeout: 120 * SEC }).should("not.exist");
+
+        project.create();
     });
 
     after("Teardown", function () {
