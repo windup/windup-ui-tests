@@ -237,5 +237,51 @@
                 "total": 103
             }
         ]
+    },
+
+    "Openjdk21": {
+        "name": "Openjdk21",
+        "apps": [
+            "spring-petclinic-2.4.0.BUILD-SNAPSHOT.jar"
+        ],
+        "targets": ["openjdk21"],
+        "storyPoints": [27],
+        "incidents": [
+            {
+                "mandatory": 1,
+                "potential": 22,
+                "informational": 61,
+                "total": 84
+            }
+        ]
+    },
+
+    "Camel4": {
+        "name": "camel-4",
+        "apps": ["customers-tomcat-0.0.1-SNAPSHOT.war"],
+        "targets": ["camel:4.0"],
+        "storyPoints": [6],
+        "incidents": [
+            {
+                "potential": 6,
+                "informational": 48,
+                "total": 54
+            }
+        ]
+    },
+
+    "JWS6": {
+        "name": "JWS6",
+        "apps": ["camunda-bpm-spring-boot-starter-example-war-2.0.0.war"],
+        "targets": ["JBoss Web Server 6"],
+        "storyPoints": [1219],
+        "incidents": [
+            {
+                "mandatory": 1157,
+                "potential": 9,
+                "informational": 110,
+                "total": 1280
+            }
+        ]
     }
 }
