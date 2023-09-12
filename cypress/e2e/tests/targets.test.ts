@@ -127,6 +127,54 @@ describe(["tier1"], "Analysis on different targets", function () {
         pf4reports.validateIncidents(trimAppNames(projectData["apps"]), projectData["incidents"]);
     });
 
+    it("Analysis for target Openjdk21", function () {
+        let projectData = getRandomApplicationData(this.projectData["Openjdk21"]);
+        const project = new Projects(projectData);
+        project.create();
+        const analysis = new Analysis(projectData["name"]);
+        analysis.runAnalysis();
+        analysis.verifyLatestAnalysisStatus(completed);
+        analysis.openReport();
+        const pf4reports = new PF4Reports();
+        pf4reports.validateStoryPoints(
+            trimAppNames(projectData["apps"]),
+            projectData["storyPoints"]
+        );
+        pf4reports.validateIncidents(trimAppNames(projectData["apps"]), projectData["incidents"]);
+    });
+
+    it("Analysis for target camel4", function () {
+        let projectData = getRandomApplicationData(this.projectData["Camel4"]);
+        const project = new Projects(projectData);
+        project.create();
+        const analysis = new Analysis(projectData["name"]);
+        analysis.runAnalysis();
+        analysis.verifyLatestAnalysisStatus(completed);
+        analysis.openReport();
+        const pf4reports = new PF4Reports();
+        pf4reports.validateStoryPoints(
+            trimAppNames(projectData["apps"]),
+            projectData["storyPoints"]
+        );
+        pf4reports.validateIncidents(trimAppNames(projectData["apps"]), projectData["incidents"]);
+    });
+
+    it("Analysis for target jws6", function () {
+        let projectData = getRandomApplicationData(this.projectData["JWS6"]);
+        const project = new Projects(projectData);
+        project.create();
+        const analysis = new Analysis(projectData["name"]);
+        analysis.runAnalysis();
+        analysis.verifyLatestAnalysisStatus(completed);
+        analysis.openReport();
+        const pf4reports = new PF4Reports();
+        pf4reports.validateStoryPoints(
+            trimAppNames(projectData["apps"]),
+            projectData["storyPoints"]
+        );
+        pf4reports.validateIncidents(trimAppNames(projectData["apps"]), projectData["incidents"]);
+    });
+
     after("Teardown", function () {
         login();
         Projects.deleteAllProjects();
