@@ -57,6 +57,17 @@ describe(["tier2"], "Report Cases", function () {
         legacyReport.validateTechTags(trimAppNames(projectData["apps"]), projectData["tags"]);
     });
 
+    it("Check Report Links", function () {
+        let projectData = getRandomApplicationData(this.projectData["Containerization"]);
+        const project = new Projects(projectData);
+        project.create();
+        const analysis = new Analysis(projectData["name"]);
+        analysis.runAnalysis();
+        analysis.verifyLatestAnalysisStatus(completed);
+        analysis.openReport();
+        analysis.
+    });
+
     after("Teardown", function () {
         login();
         Projects.deleteAllProjects();
