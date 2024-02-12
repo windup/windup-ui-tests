@@ -5,15 +5,9 @@ FROM docker.io/cypress/included:12.7.0
 ENV CYPRESS_CACHE_FOLDER=/tmp/.cache/Cypress
 ENV npm_config_cache=/tmp/.cache/npm
 
-# Must remove the Google Chrome repository because there is a missing GPG key and it causes the build to fail
-# Then run "apt update" and instal gnupg to add the missing GPG key for Google Chrome
-# Then re-add the Google Chrome repository
-# After fixing the GPG issue, we can install unzip (the only reason all of that had to be done...)
+# Must remove the Google Chrome repository to run apt update/install because the GPG is missing.
+# Install unzip
 RUN echo "" > /etc/apt/sources.list.d/google-chrome.list \
-    && apt -y update \
-    && apt install -y gnupg \
-    && echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list \
-    && wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add - \
     && apt -y update \
     && apt install -y unzip
 
