@@ -5,9 +5,11 @@ FROM docker.io/cypress/included:12.7.0
 ENV CYPRESS_CACHE_FOLDER=/tmp/.cache/Cypress
 ENV npm_config_cache=/tmp/.cache/npm
 
-# Update container and install unzip
-RUN apt -y update && \
-    apt install -y unzip
+# Must remove the Google Chrome repository to run apt update/install because the GPG is missing.
+# Install unzip
+RUN echo "" > /etc/apt/sources.list.d/google-chrome.list \
+    && apt -y update \
+    && apt install -y unzip
 
 # Create /tmp/windup-ui-tests, copy this repo in to the container and install required Node packages
 RUN mkdir /tmp/windup-ui-tests
