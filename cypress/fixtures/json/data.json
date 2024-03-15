@@ -60,14 +60,14 @@
         "name": "Eap8",
         "apps": ["AdministracionEfectivo.ear", "bonita-xcmis-war-5.5.war", "bw-note-ear-4.0.0.ear"],
         "targets": ["eap8"],
-        "storyPoints": [1411, 1606, 25],
+        "storyPoints": [1412, 1606, 25],
         "incidents": [
             {
-                "mandatory": 1397,
+                "mandatory": 1398,
                 "optional": 2,
                 "potential": 6,
                 "informational": 209,
-                "total": 1614
+                "total": 1615
             },
             {
                 "mandatory": 1183,
@@ -131,14 +131,14 @@
         "advancedOptions": {
             "options": ["Legacy reports"]
         },
-        "storyPoints": [212, 183, 145],
+        "storyPoints": [226, 183, 148],
         "incidents": [
             {
-                "mandatory": 86,
+                "mandatory": 100,
                 "optional": 9,
                 "potential": 26,
                 "informational": 110,
-                "total": 231
+                "total": 245
             },
             {
                 "mandatory": 20,
@@ -150,9 +150,9 @@
             {
                 "mandatory": 32,
                 "optional": 0,
-                "potential": 21,
+                "potential": 22,
                 "informational": 61,
-                "total": 114
+                "total": 115
             }
         ]
     },
@@ -168,14 +168,14 @@
         "advancedOptions": {
             "options": ["Legacy reports"]
         },
-        "storyPoints": [295, 202, 164],
+        "storyPoints": [309, 202, 167],
         "incidents": [
             {
-                "mandatory": 88,
+                "mandatory": 102,
                 "optional": 9,
                 "potential": 108,
                 "informational": 110,
-                "total": 315
+                "total": 329
             },
             {
                 "mandatory": 20,
@@ -187,9 +187,9 @@
             {
                 "mandatory": 32,
                 "optional": 0,
-                "potential": 40,
+                "potential": 41,
                 "informational": 61,
-                "total": 133
+                "total": 134
             }
         ]
     },
